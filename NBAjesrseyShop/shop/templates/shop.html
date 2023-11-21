@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sklep</title>
+</head>
+<body>
+    <h1>Witamy w naszym sklepie</h1>
+
+    {% for products in product  %}
+    <h2>{{products.name}}</h2>
+    {% endfor %}
+</body>
+</html>
