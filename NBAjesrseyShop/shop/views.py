@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from  .models import Product
+from  .models import *
 
 # Create your views here.
 def sklep(request):
-    products = Product.objects.all()
-
+    products = ProductVariant.objects.all()
     return render(request, 'shop.html', {'products': products})
 
