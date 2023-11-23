@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NBA Jersey Shop{% endblock title %}</title>
+</head>
+<body> 
+    {% if user.is_authenticated %}
+    <p>Welcome back {{user}}</p>
+    <a href="{% url 'logout' %}">Log out</a>
+    {% else %}
+    <a href="{% url 'registration' %}">Sign up</a>
+    <a href="{% url 'login' %}">Log in</a>
+    {% endif %}
+    
+    {% block content %}
+        
+    {% endblock content %}
+</body>
+</html>
