@@ -27,6 +27,9 @@ class Product(models.Model):
     def __str__(self) -> str:
         return f'Koszulka {self.product_name}, cena: {self.price}'
 
+    def photo(self):
+        return self.image
+
 
 class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
@@ -42,7 +45,7 @@ class ProductVariant(models.Model):
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
-        return f'{self.product_id} rozmiary {self.size}'
+        return f'{self.product_id}'
 
 class OrderProducts(models.Model):
     quantity = models.IntegerField()

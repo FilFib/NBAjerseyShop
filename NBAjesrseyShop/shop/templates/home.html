@@ -6,6 +6,11 @@
 </head>
     <h1>Witamy w Jasey Shop</h1>
 <body>
-    <h2>WELCOME</h2>
+    {% for p in product %}
+    <h3>{{ p.product_name }}</h3>
+        {% if p.image %}
+            <img alt="product image" src="{{ p.image.url }}">
+        {% endif %}
+    {% endfor %}
 </body>
 </html>

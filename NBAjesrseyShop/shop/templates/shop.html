@@ -7,12 +7,13 @@
 <body>
     <h1>Witamy w naszym sklepie</h1>
 
-    {% for product in products  %}
-    <h2>{{product}}</h2>
-        {% if product.product.image %}
-            <img alt="product image">
+    {% for prod in products  %}
+        <h2>{{prod}}</h2>
+        {% if prod.product_id.image %}
+            <h3>{{ prod.product_id.nba_player }}</h3>
+            <img alt="product image" src="{{ prod.product_id.image.url }}">
+
         {% endif %}
-          
     {% endfor %}
 </body>
 </html>
