@@ -14,12 +14,10 @@ class RegistrationView(CreateView):
     def form_valid(self, form):
         valid = super().form_valid(form)
         user = form.save()
+        email = form.cleaned_data.get("email")
         raw_password = form.cleaned_data.get('password')
-        user = authenticate(password=raw_password)
+        user = authenticate(email=email, password=raw_password)
         login(self.request, user)
-        # if user is not None:
-        #     login(self.request, user)
-        #     return super().form_valid(form)
         return valid
      
 
