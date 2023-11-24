@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły</title>
+</head>
+<body>
+    <h1>{{ product.product_name }}</h1>
+    {% if product.team_id.team_image %}
+        <img src='{{ product.image.url }}' alt='product image'>
+    {% endif %}
+    <h2>{{ product.description }}</h2>
+</body>
+</html>

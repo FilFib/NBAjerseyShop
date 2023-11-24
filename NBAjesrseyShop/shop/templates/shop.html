@@ -8,10 +8,14 @@
     <h1>Witamy w naszym sklepie</h1>
 
     {% for prod in products  %}
-        <h2>{{prod}}</h2>
+        {% if prod.product_id.team_id.team %}
+            <h2>{{ prod.product_id.team_id.team }}</h2>
+        {% endif %}
+        <h2>{{ prod }}</h2>
         {% if prod.product_id.image %}
             <h3>{{ prod.product_id.nba_player }}</h3>
             <img alt="product image" src="{{ prod.product_id.image.url }}">
+            <h3>OPIS: {{ prod.product_id.description }}</h3>
 
         {% endif %}
     {% endfor %}

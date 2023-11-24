@@ -6,11 +6,20 @@
 </head>
     <h1>Witamy w Jasey Shop</h1>
 <body>
-    {% for p in product %}
-    <h3>{{ p.product_name }}</h3>
-        {% if p.image %}
-            <img alt="product image" src="{{ p.image.url }}">
-        {% endif %}
-    {% endfor %}
+{#    {% for p in product %}#}
+{#    <h3>{{ p.product_name }}</h3>#}
+{#        {% if p.image %}#}
+{#            <img alt="product image" src="{{ p.image.url }}">#}
+{#        {% endif %}#}
+{#    {% endfor %}#}
+
+        {% for t in team %}
+            <h3>Drużyna</h3>
+            {% if t.team_image %}
+                <img alt="team picture" src="{{ t.team_image.url }}">
+            {% endif %}
+        {% endfor %}
+
+
 </body>
 </html>

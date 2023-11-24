@@ -5,7 +5,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('sklep/', views.sklep, name='shop')
+    path('sklep/', views.sklep, name='shop'),
+    path('details', views.detail, name='detail'),
 ]
 
 if settings.DEBUG:
