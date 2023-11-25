@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User
+from .models import User, Address
 
+
+admin.site.register(Address)
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
@@ -23,3 +25,6 @@ class CustomUserAdmin(UserAdmin):
             },
         ),
     )
+
+
+# @admin.register(User)

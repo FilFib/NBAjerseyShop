@@ -1,5 +1,5 @@
 from django import forms
-from accounts.models import User
+from accounts.models import User, Address
 
 
 class RegistrationForm(forms.ModelForm):
@@ -24,3 +24,11 @@ class RegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['country', 'zip_code', 'city', 'street', 'house_no', 
+                  'apartment_no', 'default_shipping_address']
+        widgets = {'user_id': forms.HiddenInput()}
