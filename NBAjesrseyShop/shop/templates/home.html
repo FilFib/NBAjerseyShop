@@ -6,20 +6,22 @@
 </head>
     <h1>Witamy w Jasey Shop</h1>
 <body>
-{#    {% for p in product %}#}
-{#    <h3>{{ p.product_name }}</h3>#}
-{#        {% if p.image %}#}
-{#            <img alt="product image" src="{{ p.image.url }}">#}
-{#        {% endif %}#}
-{#    {% endfor %}#}
+<ul>
+     {% for object in object_list %}
+         <li>Drużyna</li>
+         <p>{{ object.pk }}</p>
+         {% if object.team_image %}
+             <a href="shop_team/<int:pk>">
+                <img alt="team picture" src="{{ object.team_image.url }}">
+             </a>
+         {% endif %}
+     {% endfor %}
 
-        {% for t in team %}
-            <h3>Drużyna</h3>
-            {% if t.team_image %}
-                <img alt="team picture" src="{{ t.team_image.url }}">
-            {% endif %}
-        {% endfor %}
+{#     {% for p in product %}#}
+{#         <h3>{{ p.product_id.product_name }}</h3>#}
+{#         {% if p.product_id %}#}
+{#            <img alt="product image" src="{{ p.product_id.image.url }}">#}
 
-
+</ul>
 </body>
 </html>

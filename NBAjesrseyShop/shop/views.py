@@ -1,19 +1,29 @@
 from django.shortcuts import render, get_object_or_404
-from  .models import *
-
-# Create your views here.
-def home(request):
-    team = Team.objects.all()
-    return render(request, 'home.html', {'team': team})
+from .models import *
+from django.views.generic import *
 
 
-def sklep(request):
-    products = ProductVariant.objects.all()
-    # photo = ProductVariant.product_id.image
-    return render(request, 'shop.html', {'products': products})
+class TeamListViews(ListView):
+    model = Team
+    template_name = "home.html"
+    context_object_name = 'team'
 
-def detail(request, product_id):
-    product = get_object_or_404(Product, product_id)
-    return render(request, 'detail.html', {'product': product_id})
+
+class ProductListViews(ListView):
+    model = Product
+    template_name = "shop_team.html"
+    context_object_name = 'products'
+
+    def get_queryset(self, **kwargs):
+        team_id = self.kwargs['pk']
+        return Product.objects.filter(team_id=team_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        team_id = self.kwargs['pk']
+        context['team'] = Team.objects.get(pk=team_id)
+        return context
+
+
 
 

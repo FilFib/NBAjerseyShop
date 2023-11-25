@@ -1,12 +1,12 @@
 from django.urls import path
-from . import views
+from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('sklep/', views.sklep, name='shop'),
-    path('details', views.detail, name='detail'),
+    path('', TeamListViews.as_view(), name='home'),
+    path('shop_team/<pk>', ProductListViews.as_view(), name='shop_team'),
+    # path('details', views.detail, name='detail'),
 ]
 
 if settings.DEBUG:
