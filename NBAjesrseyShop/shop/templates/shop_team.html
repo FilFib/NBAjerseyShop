@@ -9,12 +9,15 @@
 
 
     {% for prod in products %}
-        <h3>{{ prod.product_name }}</h3>
-        {% if prod.image %}
-            <h3>{{ prod.nba_player }}</h3>
-            <img alt="product image" src="{{ prod.image.url }}">
+        {% if product %}    
+            <h3>{{ prod.product_name }}</h3>
+            {% if prod.image %}
+                <h3>{{ prod.nba_player }}</h3>
+                <img alt="product image" src="{{ prod.image.url }}">
+            {% endif %}
+        {% else %}
+            <h4>Nie ma jeszcze produktów dla tej drużyny</h4>
         {% endif %}
-
     {% endfor %}
 
 </body>

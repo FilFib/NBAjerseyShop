@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Jersey Shop</title>
-</head>
-    <h1>Witamy w Jasey Shop</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+
 <body>
 <ul>
      {% for object in object_list %}
-         <li>Drużyna</li>
-         <p>{{ object.pk }}</p>
+{#         <li>Drużyna</li>#}
+{#         <p>{{ object.pk }}</p>#}
          {% if object.team_image %}
-             <a href="shop_team/<int:pk>">
+             <a href="shop_team/{{ object.pk }}/products">
                 <img alt="team picture" src="{{ object.team_image.url }}">
              </a>
          {% endif %}
+         {% for p in product %}
+            <h3>{{ p.product_id.product_name }}</h3>
+         {% endfor %}
+
      {% endfor %}
 
 {#     {% for p in product %}#}
@@ -24,4 +25,5 @@
 
 </ul>
 </body>
-</html>
+
+{% endblock content %}
