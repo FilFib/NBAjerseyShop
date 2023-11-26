@@ -3,27 +3,44 @@
 {% block content %}
 
 <body>
-<ul>
-     {% for object in object_list %}
-{#         <li>Drużyna</li>#}
-{#         <p>{{ object.pk }}</p>#}
-         {% if object.team_image %}
-             <a href="shop_team/{{ object.pk }}/products">
-                <img alt="team picture" src="{{ object.team_image.url }}">
-             </a>
-         {% endif %}
-         {% for p in product %}
-            <h3>{{ p.product_id.product_name }}</h3>
-         {% endfor %}
+    <h2>Teams</h2>
+    <ul>
+        {% for team in teams %}
+                {% if team.team_image %}
+                    <a href="{% url 'team_products' team.pk %}">
+                        <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" style="max-width: 100px;">
+                    </a>
+                {% endif %}
+        {% endfor %}
+    </ul>
 
-     {% endfor %}
-
-{#     {% for p in product %}#}
-{#         <h3>{{ p.product_id.product_name }}</h3>#}
-{#         {% if p.product_id %}#}
-{#            <img alt="product image" src="{{ p.product_id.image.url }}">#}
-
-</ul>
+    <h2>Jerseys</h2>
+    <ul class="products-list">
+        {% for product in products %}
+            <li>
+                <strong>{{ product }}</strong> - {{ product.price }}
+                {% if product.image %}
+                    <br>
+                    <img src="{{ product.image.url }}" alt="{{product}} Image" style="max-width: 200px;">
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
 </body>
+
+<style>
+    .products-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .products-list li {
+        flex: 0 0 0%; /* Ustawia szerokość elementu na około 48% szerokości kontenera, aby uzyskać dwie kolumny */
+        margin: 1%; /* Dodaje odstęp między elementami */
+        box-sizing: border-box; /* Zapobiega dodawaniu marginesu do szerokości elementu, co może prowadzić do przepełnienia */
+    }
+</style>
 
 {% endblock content %}

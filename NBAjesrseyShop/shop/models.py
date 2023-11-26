@@ -21,8 +21,8 @@ class Product(models.Model):
     image = models.ImageField(upload_to="images/", blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     description = models.TextField(null=True, blank=True)
-    team_id = models.ForeignKey(Team, on_delete=models.DO_NOTHING)
-    nba_player = models.ForeignKey(NbaPlayer, on_delete=models.DO_NOTHING)
+    team_id = models.ForeignKey(Team, on_delete=models.DO_NOTHING, blank=True, null=True)
+    nba_player = models.ForeignKey(NbaPlayer, on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         return f'{self.product_name}'
@@ -49,7 +49,6 @@ class OrderProducts(models.Model):
     quantity = models.IntegerField()
     product_by_quan_coast = models.DecimalField(max_digits=8, decimal_places=2)
     order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product, on_delete=models.DO_NOTHING)
     product_variant_id = models.ForeignKey(ProductVariant, on_delete=models.DO_NOTHING)
 
 

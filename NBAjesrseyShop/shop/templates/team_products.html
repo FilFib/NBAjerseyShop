@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Jerseys {{ team.team}}</h1>
+
+    {% if products %}
+    <ul class="products-list">
+      {% for product in products %}
+        <li>
+          <strong>{{ product}}</strong> - {{ product.price }}
+          {% if product.image %}
+            <br>
+            <img src="{{ product.image.url }}" alt="{{ product.name }} Image" style="max-width: 200px;" >
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no products for this team.</p>
+  {% endif %}
+  
+  <style>
+    .products-list {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .products-list li {
+        flex: 0 0 0%;
+        margin: 1%; 
+        box-sizing: border-box; 
+    }
+</style>
+
+{% endblock content %}

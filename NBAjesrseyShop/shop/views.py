@@ -3,34 +3,31 @@ from .models import *
 from django.views.generic import *
 
 
-class TeamListViews(ListView):
-    model = Team
+class HomeViews(TemplateView):
     template_name = "home.html"
-    context_object_name = 'team'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['teams'] = Team.objects.all()
+        context['products'] = Product.objects.all()
+        return context
 
 
-class ProductListViews(ListView):
+class TeamProductsListViews(ListView):
     model = Product
-    template_name = "shop_team.html"
+    template_name = "team_products.html"
     context_object_name = 'products'
 
     def get_queryset(self):
-        team_id = self.kwargs['team_id']
+        team_id = self.kwargs['pk']
         return Product.objects.filter(team_id=team_id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        team_id = self.kwargs['team_id']
+        team_id = self.kwargs['pk']
         context['team'] = Team.objects.get(id=team_id)
         if context:
             return context
-
-        else:
-            return f'Jeszcze nie ma dostępnych produktów.'
-
-def home(requesst):
-    products = Product.objects.all()
-    return render(requesst, 'home.html', {'product':products})
 
 
 
