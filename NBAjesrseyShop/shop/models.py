@@ -1,8 +1,6 @@
 from django.db import models
+from accounts.models import Address
 
-
-
-# Create your models here.
 class Team(models.Model):
     team = models.CharField(max_length=50)
     team_image = models.ImageField(upload_to='images/', blank=True)
@@ -11,15 +9,11 @@ class Team(models.Model):
         return f'{self.team}'
 
 
-
-
 class NbaPlayer(models.Model):
     nba_player = models.CharField(max_length=50)
 
     def __str__(self):
         return f'{self.nba_player}'
-
-
 
 
 class Product(models.Model):
@@ -42,14 +36,13 @@ class Order(models.Model):
     payment_date = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=20)
     total_cost = models.DecimalField(max_digits=8, decimal_places=2)
-    # address_id = models.ForeignKey('Address', on_delete=models.DO_NOTHING)
+    address_id = models.ForeignKey(Address, on_delete=models.DO_NOTHING, null=True)
 
 
 class ProductVariant(models.Model):
     size = models.CharField(max_length=20)
     stock_quantity = models.IntegerField(default=0)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-
 
 
 class OrderProducts(models.Model):
