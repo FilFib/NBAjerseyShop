@@ -3,6 +3,7 @@ from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('', TeamListViews.as_view(), name='home'),
     path('shop_team/<team_id>/products', ProductListViews.as_view(), name='shop_team'),
