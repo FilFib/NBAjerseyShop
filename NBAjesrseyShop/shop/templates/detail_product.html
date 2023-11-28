@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>   
+<img src="{{ image.url }}" alt="{{ detail.product_name }} Image" style="width: 40rem;" >
+    <h1>{{ detail.product_name }}</h1>
+    <label>
+        <select name="size">
+        {% for size in size %}
+            <option value="{{ size.size }}"> Size: {{ size.size }}  Stock: {{ size.stock_quantity }}"</option>
+        {% endfor %}
+        </select>
+    </label>
+    <p>Description: {{ description }}</p>
+    <p>Player: {{ player }}</p>
+    <p>
+        <a href="{% url 'team_products' team.pk %}">
+        Team: {{ team }}
+    </p>
+</div> 
+{% endblock content %}

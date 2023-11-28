@@ -2,44 +2,41 @@
 
 {% block content %}
 
-<body>
+<div>
     <h2>Teams</h2>
     <ul>
         {% for team in teams %}
-                {% if team.team_image %}
-                    <a href="{% url 'team_products' team.pk %}">
-                        <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" style="max-width: 100px;">
-                    </a>
-                {% endif %}
+        {% if team.team_image %}
+        <a href="{% url 'team_products' team.pk %}">
+            <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" class="hover" style="max-width: 100px;">
+        </a>
+        {% endif %}
         {% endfor %}
     </ul>
 
     <h2>Jerseys</h2>
-    <ul class="products-list">
-        {% for product in products %}
-            <li>
-                <strong>{{ product }}</strong> - {{ product.price }}
-                {% if product.image %}
-                    <br>
-                    <img src="{{ product.image.url }}" alt="{{product}} Image" style="max-width: 200px;">
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
-</body>
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+            
+            <div class="card hover" style="width: 20rem;">
+                <a href="{% url 'product_detail' product.pk %}">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+            
+                <div class="card-body">
+                    <h6 class="card-title">{{ product }}</h6>
+                    <p class="card-text">{{ product.price }} €</p>
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
 <style>
-    .products-list {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .products-list li {
-        flex: 0 0 0%; /* Ustawia szerokość elementu na około 48% szerokości kontenera, aby uzyskać dwie kolumny */
-        margin: 1%; /* Dodaje odstęp między elementami */
-        box-sizing: border-box; /* Zapobiega dodawaniu marginesu do szerokości elementu, co może prowadzić do przepełnienia */
+    .hover:hover {
+        filter: brightness(0.8);
     }
 </style>
 

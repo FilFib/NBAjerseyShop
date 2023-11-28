@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from .models import *
 from django.views.generic import *
 
@@ -30,4 +30,31 @@ class TeamProductsListViews(ListView):
             return context
 
 
+class ProductDetailVeiw(View):
+    model = Product
+    template_name = 'detail_product.html'
+    context_object_name = 'detail'
+
+    def get_queryset(self):
+        product_id = self.kwargs['pk']
+        return Product.objects.filter(id=product_id)
+
+    def get(self, request, pk):
+        product_variant = ProductVariant.objects.all()
+        size = [s for s in product_variant]
+
+        product = Product.objects.get(pk=pk)
+        description = product.description
+        player= product.nba_player
+        image = product.image
+        team = product.team_id
+        
+        context = {
+                'size': size,
+                'description': description,
+                'player': player,
+                'image': image,
+                'team': team,
+        }
+        return render(request, 'detail_product.html', context)
 

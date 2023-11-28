@@ -1,37 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Jerseys {{ team.team}}</h1>
-
-    {% if products %}
-    <ul class="products-list">
-      {% for product in products %}
-        <li>
-          <strong>{{ product}}</strong> - {{ product.price }}
-          {% if product.image %}
-            <br>
-            <img src="{{ product.image.url }}" alt="{{ product.name }} Image" style="max-width: 200px;" >
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>There are no products for this team.</p>
-  {% endif %}
+<div>
+  <h2>
+    <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" style="max-width: 40px;">
+    {{ team.team}} Jerseys
+  </h2>
   
-  <style>
-    .products-list {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .products-list li {
-        flex: 0 0 0%;
-        margin: 1%; 
-        box-sizing: border-box; 
-    }
-</style>
-
+  {% if products %}
+  <div class="container">
+      <div class="row">
+          {% for product in products %}
+          <div class="card hover" style="width: 20rem;">
+              <a href="{% url 'product_detail' product.pk %}">
+              <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+          
+              <div class="card-body">
+                  <h6 class="card-title">{{ product }}</h6>
+                  <p class="card-text">{{ product.price }} €</p>
+              </div>
+              </a>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+  {% else %}
+  <p>There are no products for this team.</p>
+  {% endif %}
+</div>
 {% endblock content %}
