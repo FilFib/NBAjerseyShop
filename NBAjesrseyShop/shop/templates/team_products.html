@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+  <h2>
+    <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" style="max-width: 40px;">
+    {{ team.team}} Jerseys
+  </h2>
+  
+  {% if products %}
+  <div class="container">
+      <div class="row">
+          {% for product in products %}
+          <div class="card hover" style="width: 20rem;">
+              <a href="{% url 'product_detail' product.pk %}">
+              <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+          
+              <div class="card-body">
+                  <h6 class="card-title">{{ product }}</h6>
+                  <p class="card-text">{{ product.price }} €</p>
+              </div>
+              </a>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+  {% else %}
+  <p>There are no products for this team.</p>
+  {% endif %}
+</div>
+{% endblock content %}

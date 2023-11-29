@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <h2>Teams</h2>
+    <ul>
+        {% for team in teams %}
+        {% if team.team_image %}
+        <a href="{% url 'team_products' team.pk %}">
+            <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" class="hover" style="max-width: 100px;">
+        </a>
+        {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h2>Jerseys</h2>
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+            
+            <div class="card hover" style="width: 20rem;">
+                <a href="{% url 'product_detail' product.pk %}">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+            
+                <div class="card-body">
+                    <h6 class="card-title">{{ product }}</h6>
+                    <p class="card-text">{{ product.price }} €</p>
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover:hover {
+        filter: brightness(0.8);
+    }
+</style>
+
+{% endblock content %}
