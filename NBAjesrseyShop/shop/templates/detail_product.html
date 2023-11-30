@@ -4,16 +4,18 @@
 <div>   
 <img src="{{ product.image.url }}" alt="{{ product }} Image" style="width: 40rem;" >
     <h1>{{ product }}</h1>
-    <p>Description: {{ description }}</p>
-    <p>Player: {{ product.player }}</p>
+    <p>Description: {{ product.description }}</p>
+    <p>Player: {{ player }}</p>
     <p>
         <a href="{% url 'team_products' team.pk %}">
-        Team: {{ product.team }} </a>
+        Team: {{ team }} </a>
     </p>
     <p>Price: {{ product.price }}</p>
-    <form action="{% url 'cart:cart_add' product_variant.id %}" method="post">
+
+    <form action="{% url 'cart:cart_add'%}" method="post"> 
         {{ cart_product_form }}
         {% csrf_token %}
+        <input type="hidden" name="product_variant_id" value="{{ product_variant.id }}">
         <input type="submit" value="Add to cart">
     </form>
 </div> 
