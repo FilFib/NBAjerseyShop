@@ -12,10 +12,9 @@
     </p>
     <p>Price: {{ product.price }}</p>
 
-    <form action="{% url 'cart:cart_add'%}" method="post"> 
+    <formaction="{% url "cart:cart_add" product.id %}" method="post"> 
         {{ cart_product_form }}
         {% csrf_token %}
-        <input type="hidden" name="product_variant_id" value="{{ product_variant.id }}">
         <input type="submit" value="Add to cart">
     </form>
 </div> 
