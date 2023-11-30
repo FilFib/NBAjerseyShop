@@ -12,8 +12,8 @@
       <tr>
         <th>Image</th>
         <th>Jersey</th>
-        <th>Size</th>
         <th>Quantity</th>
+        <th>Update</th>
         <th>Remove</th>
         <th>Unit price</th>
         <th>Price</th>
@@ -21,15 +21,16 @@
     </thead>
     <tbody>
       {% for item in cart %}
-            <td style="width: 20rem;">
+      {% with product=item.product %}
+      <tr>
+            <td>
               <a>
-                <img src={{ product.image.url }}>
+                <img src={{ product.image.url }} style="width: 5rem;">
               </a>
             </td>
-            <td>{{ item.product }}</td>
-            <td>{{ item.product_variant.size }}</td>
+            <td>{{ product.product_name }}</td>
             <td>
-              <form action="{% url "cart:cart_add" product.id %}" method="post">
+              <form action="{% url 'cart:cart_add' product.id %}" method="post">
                 {{ item.update_quantity_form.quantity }}
                 {{ item.update_quantity_form.override }}
                 <input type="submit" value="Update">
@@ -37,7 +38,7 @@
               </form>
             </td>
             <td>
-              <form action="{% url "cart:cart_remove" product.id %}" method="post">
+              <form action="{% url 'cart:cart_remove' product.id %}" method="post">
                 <input type="submit" value="Remove">
                 {% csrf_token %}
               </form>
@@ -45,6 +46,7 @@
             <td class="num">${{ item.product.price }}</td>
             <td class="num">${{ item.total_price }}</td>
           </tr>
+          {% endwith %}
       {% endfor %}
       <tr class="total">
         <td>Total</td>

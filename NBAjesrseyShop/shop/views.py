@@ -45,9 +45,10 @@ class ProductDetailVeiw(View):
         product = Product.objects.get(pk=pk)
         player= product.nba_player
         team = product.team_id
-        product_variants = ProductVariant.objects.filter(product_id=pk)
-        cart_product_form = CartAddProductForm(product_variants)
-        
+        # product_variants = ProductVariant.objects.filter(product_id=pk)
+        # cart_product_form = CartAddProductForm(product_variants)
+        cart_product_form = CartAddProductForm()
+
         context = {
                 'product': product,
                 'player': player,
