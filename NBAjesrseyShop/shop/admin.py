@@ -3,8 +3,6 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Product)
-admin.site.register(Order)
-admin.site.register(OrderProducts)
 admin.site.register(Team)
 admin.site.register(NbaPlayer)
 admin.site.register(ProductVariant)
