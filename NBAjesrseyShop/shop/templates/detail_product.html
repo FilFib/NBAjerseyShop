@@ -2,20 +2,20 @@
 
 {% block content %}
 <div>   
-<img src="{{ image.url }}" alt="{{ detail.product_name }} Image" style="width: 40rem;" >
-    <h1>{{ detail.product_name }}</h1>
-    <label>
-        <select name="size">
-        {% for size in size %}
-            <option value="{{ size.size }}"> Size: {{ size.size }}  Stock: {{ size.stock_quantity }}"</option>
-        {% endfor %}
-        </select>
-    </label>
-    <p>Description: {{ description }}</p>
+<img src="{{ product.image.url }}" alt="{{ product }} Image" style="width: 40rem;" >
+    <h1>{{ product }}</h1>
+    <p>Description: {{ product.description }}</p>
     <p>Player: {{ player }}</p>
     <p>
         <a href="{% url 'team_products' team.pk %}">
-        Team: {{ team }}
+        Team: {{ team }} </a>
     </p>
+    <p>Price: {{ product.price }} €</p>
+
+    <form action="{% url 'cart:cart_add' product.id %}" method="post"> 
+        {{ cart_product_form }}
+        {% csrf_token %}
+        <input type="submit" value="Add to cart">
+    </form>
 </div> 
 {% endblock content %}
