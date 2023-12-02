@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import *
 from django.views.generic import *
+from cart.forms import CartAddProductForm
+
 
 
 class HomeViews(TemplateView):
@@ -40,21 +42,15 @@ class ProductDetailVeiw(View):
         return Product.objects.filter(id=product_id)
 
     def get(self, request, pk):
-        product_variant = ProductVariant.objects.all()
-        size = [s for s in product_variant]
-
         product = Product.objects.get(pk=pk)
-        description = product.description
         player= product.nba_player
-        image = product.image
         team = product.team_id
-        
+        cart_product_form = CartAddProductForm(product_id=product.id)
+
         context = {
-                'size': size,
-                'description': description,
+                'product': product,
                 'player': player,
-                'image': image,
                 'team': team,
+                'cart_product_form': cart_product_form,
         }
         return render(request, 'detail_product.html', context)
-

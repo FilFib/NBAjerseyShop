@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Checkout</h1>
+
+<div class="order-info">
+  <h3>Shipping information</h3>
+  <p>Name: {{ user }}</p>
+  <p>Address: {{ address }}</p>
+
+  <h3>Your order</h3>
+  <ul>
+    {% for item in cart %}
+    {% with product=item.product %}
+      <li>
+        <a><img src={{ product.image.url }} style="width: 5rem;"></a>
+        {{ item.quantity }}x {{ item.product }}
+        <span>{{ item.total_price }} €</span>
+      </li>
+    {% endwith %}
+    {% endfor %}
+  </ul>
+  <p>Total: ${{ cart.get_total_price }} €</p>
+</div>
+<form method="post" class="order-form">
+  <p><input type="submit" value="Place order"></p>
+  {% csrf_token %}
+</form>
+
+{% endblock content %}
