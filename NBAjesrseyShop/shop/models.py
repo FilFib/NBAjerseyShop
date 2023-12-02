@@ -1,5 +1,4 @@
 from django.db import models
-from accounts.models import Address
 
 class Team(models.Model):
     team = models.CharField(max_length=50)
@@ -31,14 +30,6 @@ class Product(models.Model):
         return self.image
 
 
-class Order(models.Model):
-    order_date = models.DateTimeField(auto_now_add=True)
-    payment_date = models.DateTimeField(blank=True, null=True)
-    status = models.CharField(max_length=20)
-    total_cost = models.DecimalField(max_digits=8, decimal_places=2)
-    address_id = models.ForeignKey(Address, on_delete=models.DO_NOTHING, null=True)
-
-
 class ProductVariant(models.Model):
     size = models.CharField(max_length=20)
     stock_quantity = models.IntegerField(default=0)
@@ -47,11 +38,7 @@ class ProductVariant(models.Model):
     def __str__(self):
         return f'{self.product_id.product_name} | Size: {self.size} | Stock quantity: {self.stock_quantity}'
     
-class OrderProducts(models.Model):
-    quantity = models.IntegerField()
-    product_by_quan_coast = models.DecimalField(max_digits=8, decimal_places=2)
-    order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product_variant_id = models.ForeignKey(ProductVariant, on_delete=models.DO_NOTHING)
+
 
 
 
