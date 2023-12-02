@@ -6,12 +6,13 @@
 
 {% block content %}
   <h1>Your shopping cart</h1>
-  
+
   <table class="cart">
     <thead>
       <tr>
         <th>Image</th>
         <th>Jersey</th>
+        <th>Size</th>
         <th>Quantity</th>
         <th>Update</th>
         <th>Remove</th>
@@ -29,8 +30,9 @@
               </a>
             </td>
             <td>{{ product.product_name }}</td>
+            <td>{{ item.size }}</td>
             <td>
-              <form action="{% url 'cart:cart_add' product.id %}" method="post">
+              <form action="{% url 'cart:cart_update' item.product_variant_id %}" method="post">
                 {{ item.update_quantity_form.quantity }}
                 {{ item.update_quantity_form.override }}
                 <input type="submit" value="Update">
@@ -38,20 +40,20 @@
               </form>
             </td>
             <td>
-              <form action="{% url 'cart:cart_remove' product.id %}" method="post">
+              <form action="{% url 'cart:cart_remove' item.product_variant_id %}" method="post">
                 <input type="submit" value="Remove">
                 {% csrf_token %}
               </form>
             </td>
-            <td class="num">${{ item.product.price }}</td>
-            <td class="num">${{ item.total_price }}</td>
+            <td class="num">{{ item.product.price }} €</td>
+            <td class="num">{{ item.total_price }} €</td>
           </tr>
           {% endwith %}
       {% endfor %}
       <tr class="total">
         <td>Total</td>
         <td colspan="4"></td>
-        <td class="num">${{ cart.get_total_price }}</td>
+        <td class="num">{{ cart.get_total_price }} €</td>
       </tr>
     </tbody>
   </table>

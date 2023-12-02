@@ -10,7 +10,7 @@
         <a href="{% url 'team_products' team.pk %}">
         Team: {{ team }} </a>
     </p>
-    <p>Price: {{ product.price }}</p>
+    <p>Price: {{ product.price }} €</p>
 
     <form action="{% url 'cart:cart_add' product.id %}" method="post"> 
         {{ cart_product_form }}

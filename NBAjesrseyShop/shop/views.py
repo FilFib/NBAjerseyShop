@@ -45,9 +45,7 @@ class ProductDetailVeiw(View):
         product = Product.objects.get(pk=pk)
         player= product.nba_player
         team = product.team_id
-        # product_variants = ProductVariant.objects.filter(product_id=pk)
-        # cart_product_form = CartAddProductForm(product_variants)
-        cart_product_form = CartAddProductForm()
+        cart_product_form = CartAddProductForm(product_id=product.id)
 
         context = {
                 'product': product,
@@ -56,85 +54,3 @@ class ProductDetailVeiw(View):
                 'cart_product_form': cart_product_form,
         }
         return render(request, 'detail_product.html', context)
-
-
-
-    # def get(self, request, pk):
-    #     product_id = self.kwargs['pk']
-    #     product = Product.objects.get(pk=pk)
-    #     player = product.nba_player
-    #     team = product.team_id
-    #     # product_variants = ProductVariant.objects.filter(product_id=product_id)
-    #     # cart_product_form = CartAddProductForm(product_variants)
-        
-    #     context = {
-    #         'product': product,
-    #         'player': player,
-    #         'team': team,
-    #     }
-    #     return render(request, 'detail_product.html', context)
-
-    # def post(self, request, pk):
-    #     product_id = self.kwargs['pk']
-    #     product_variants = ProductVariant.objects.filter(product_id=pk)
-    #     cart_product_form = CartAddProductForm(request.POST)
-    #     cart_product_form.fields['size'].choices = [(variant.size, variant.size) for variant in product_variants]
-
-    #     if cart_product_form.is_valid():
-    #         selected_size = cart_product_form.cleaned_data['size']
-    #         product_variant = ProductVariant.objects.get(product_id=product_id, size=selected_size)
-    #         request.session['product_variant_id'] = product_variant.id
-    #         return render(request, 'detail_product.html', {'product_variant': product_variant})
-
-    #     context = {
-    #         'product_variants': product_variants,
-    #         'cart_product_form': cart_product_form,
-    #     }
-    #     return render(request, 'detail_product.html', context)
-
-
-
-
-    # def get(self, request, pk):       
-    #     product_id = self.kwargs['pk']
-    #     product = Product.objects.get(pk=pk)
-    #     player = product.nba_player
-    #     team = product.team_id
-    #     product_variants = ProductVariant.objects.filter(product_id=product_id)
-    #     cart_product_form = CartAddProductForm()
-    #     cart_product_form.fields['size'].choices = [(variant.size, variant.size) for variant in product_variants]
-
-    #     context = {
-    #             'product': product,
-    #             'player': player,
-    #             'team': team,
-    #             'cart_product_form': cart_product_form,
-    #     }
-    #     return render(request, 'detail_product.html', context)
-
-    # def post(self, request, pk):
-    #     product_id = self.kwargs['pk']
-    #     product_variants = ProductVariant.objects.filter(product_id=pk)
-    #     cart_product_form = CartAddProductForm(request.POST, product_id=pk)
-    #     cart_product_form.fields['size'].choices = [(variant.size, variant.size) for variant in product_variants]
-
-    #     if cart_product_form.is_valid():
-    #         selected_size = cart_product_form.cleaned_data['size']
-    #         product_variant = ProductVariant.objects.get(product_id=pk, size=selected_size)
-    #         cart_product_form.cleaned_data['product_variant_id'] = product_variant.id
-    #         return render(request, 'detail_product.html', {'product_variant':product_variant} )
-        
-
-    # def get(self, request, pk):       
-    #     product_id = self.kwargs['pk']
-    #     product = Product.objects.get(pk=pk)
-    #     player= product.nba_player
-    #     team = product.team_id
-    #     cart_product_form = CartAddProductForm(product_id=product_id)
-    #     context = {
-    #             'product': product,
-    #             'player': player,
-    #             'team': team,
-    #             'cart_product_form': cart_product_form,
-    #     }
-    #     return render(request, 'detail_product.html', context)
