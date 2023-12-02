@@ -32,6 +32,20 @@
                     </li>
                     {% endif %}
                     </li>
+                    <li class="nav-item">
+                        {% with total_items=cart|length %}
+                          {% if total_items > 0 %}
+                            <li>
+                            <a class="nav-link" href="{% url 'cart:cart_detail' %}">Your cart:
+                              {{ total_items }} item{{ total_items|pluralize }},
+                              ${{ cart.get_total_price }}
+                            </a>
+                            </li>
+                          {% elif not order %}
+                            <li class="nav-link">Your cart is empty.</li>
+                          {% endif %}
+                        {% endwith %}
+                    </li>
                 </ul>
             </div>
         </div>

@@ -44,7 +44,9 @@ class ProductVariant(models.Model):
     stock_quantity = models.IntegerField(default=0)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
 
-
+    def __str__(self):
+        return f'{self.product_id.product_name} | Size: {self.size} | Stock quantity: {self.stock_quantity}'
+    
 class OrderProducts(models.Model):
     quantity = models.IntegerField()
     product_by_quan_coast = models.DecimalField(max_digits=8, decimal_places=2)
