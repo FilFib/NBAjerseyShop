@@ -1,5 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from .models import OrderProducts
+from .models import OrderProducts, Order
 from accounts.models import Address
 from .forms import OrderCreateForm
 from cart.cart import Cart
@@ -29,5 +30,17 @@ def order_create(request):
     # else:
     #     form = OrderCreateForm()
     return render(request,
-                  'orders.html',
+                  'order_create.html',
                   {'cart': cart, 'form': form, 'user':user, 'address':address})
+
+
+def user_orders(request):
+    user = request.user
+    address = get_object_or_404(Address, user_id=user.id)
+    orders = [order for order in Order.objects.filter(address_id=address.id).order_by('-order_date')]
+    for order in orders:
+        order_product = get_object_or_404(OrderProducts, order_id=order.id)
+        if order:
+            return render(request, 'user_orders.html', {'orders':orders, 'order_product':order_product}, )
+        else:
+            return HttpResponse(f'There are no orders for user {user.first_name} {user.last_name}')
