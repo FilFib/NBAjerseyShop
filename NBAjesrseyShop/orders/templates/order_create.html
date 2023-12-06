@@ -26,5 +26,8 @@
   <p><input type="submit" value="Place order"></p>
   {% csrf_token %}
 </form>
+<a href= "{% url 'cart:cart_detail' %}">
+  <button>Back To Cart</button>
+</a>
 
 {% endblock content %}

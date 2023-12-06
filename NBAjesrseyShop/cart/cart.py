@@ -30,7 +30,7 @@ class Cart:
         product_cart_id = str(product_variant.id)
         if product_cart_id not in self.cart:
                 self.cart[product_cart_id] = {'quantity': 0,
-                                        'price': str(product.price)}
+                                        'price': float(product.price)}
         if override_quantity:
             self.cart[product_cart_id]['quantity'] = quantity
         else:
