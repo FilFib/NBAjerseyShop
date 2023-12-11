@@ -3,22 +3,25 @@
 
 {% block content %}
 
-<h2>{{user.first_name}} {{user.last_name}} Your orders:</h2>
-{% for order_info in products_info %}
-<h3>Order Date: {{ order_info.order_date }}</h3>
-<ul>
-    {% for product_info in order_info.products %}
-        <li>
-            Product Name: {{ product_info.product_name }}<br>
-            Quantity: {{ product_info.quantity }}<br>
-            Product by Quantity Coast: {{ product_info.product_by_quan_coast }}<br>
-
-        </li>
-    {% endfor %}
-</ul>
-<h4>Total cost: {{ order_info.total_cost }}</h4><br>
-<p>#################################################################################################################</p>
-    {% endfor %}
+{% if products_info %}
+    <h2>{{user.first_name}} {{user.last_name}} Your orders:</h2>
+        {% for order_info in products_info %}
+            <h3>Order Date: {{ order_info.order_date }}</h3>
+            <ul>
+                {% for product_info in order_info.products %}
+                    <li>
+                        Product Name: {{ product_info.product_name }}<br>
+                        Quantity: {{ product_info.quantity }}<br>
+                        Product by Quantity Coast: {{ product_info.product_by_quan_coast }}<br>
+                    </li>
+                    {% endfor %}
+                </ul>
+                <h4>Total cost: {{ order_info.total_cost }}</h4><br>
+            <p>#################################################################################################################</p>
+            {% endfor %}
+    {% else %}
+    <h2>There are no orders for {{user.first_name}} {{user.last_name}}</h2>
+    {% endif %}
 <a href="{% url 'home' %}">
     <button>Back to shop</button>
 </a>

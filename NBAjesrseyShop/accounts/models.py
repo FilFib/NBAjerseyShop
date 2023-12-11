@@ -58,4 +58,8 @@ class Address(models.Model):
                               related_name='addresses', null=False)
     
     def __str__(self) -> str:
-        return f'{self.country}, {self.city}, {self.zip_code}, {self.street}, {self.house_no}/{self.apartment_no}'
+        if self.apartment_no:
+            self.apartment_no = f'/{self.apartment_no}'
+        else:
+            self.apartment_no = ''
+        return f'{self.country}, {self.city}, {self.zip_code}, {self.street} {self.house_no}{self.apartment_no}'
