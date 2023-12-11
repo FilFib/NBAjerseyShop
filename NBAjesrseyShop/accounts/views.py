@@ -24,6 +24,7 @@ class RegistrationView(CreateView):
         if address_form.is_valid():
             address = address_form.save(commit=False)
             address.user_id = user
+            address.default_shipping_address = True
             address.save()
         else:
             user.delete()

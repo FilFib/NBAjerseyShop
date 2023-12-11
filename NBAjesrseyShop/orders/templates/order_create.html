@@ -14,15 +14,15 @@
     {% with product=item.product %}
       <li>
         <a><img src={{ product.image.url }} style="width: 5rem;"></a>
-        {{ item.quantity }}x {{ item.product }}
-        <span>{{ item.total_price }} €</span>
+        {{ item.quantity }} x {{ item.product }}, size: {{item.size}},
+        <span>total price: {{ item.total_price }} €</span>
       </li>
     {% endwith %}
     {% endfor %}
   </ul>
-  <p>Total: ${{ cart.get_total_price }} €</p>
+  <p>Total cost: {{ cart.get_total_price }} €</p>
 </div>
-<form method="post" class="order-form">
+<form method="post">
   <p><input type="submit" value="Place order"></p>
   {% csrf_token %}
 </form>

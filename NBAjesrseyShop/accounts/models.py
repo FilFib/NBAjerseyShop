@@ -53,7 +53,7 @@ class Address(models.Model):
     house_no = models.CharField(max_length=10)
     apartment_no = models.CharField(max_length=10, 
                                     blank=True, null=True)
-    default_shipping_address = models.BooleanField(default=True)
+    default_shipping_address = models.BooleanField(default=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,
                               related_name='addresses', null=False)
     
