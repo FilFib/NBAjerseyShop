@@ -22,7 +22,7 @@ class CartAddProductForm(forms.Form):
         super(CartAddProductForm, self).__init__(*args, **kwargs)
 
         if product_id:
-            product_variants = ProductVariant.objects.filter(product_id=product_id)
+            product_variants = ProductVariant.objects.filter(product_id=product_id, stock_quantity__gt=0)
             size_choices = [(variant.id, variant.size) for variant in product_variants]
             self.fields['size'].choices = size_choices
 

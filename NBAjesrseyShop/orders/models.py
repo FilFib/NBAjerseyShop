@@ -10,7 +10,7 @@ class Order(models.Model):
     address_id = models.ForeignKey(Address, on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
-        return f'{self.address_id.user_id} | Order date: {self.order_date} | Total cost: {self.total_cost} | Status: {self.status}'
+        return f'Order id: {self.id} | {self.address_id.user_id} | Order date: {self.order_date} | Total cost: {self.total_cost} | Status: {self.status}'
     
 
 class OrderProducts(models.Model):
@@ -20,4 +20,4 @@ class OrderProducts(models.Model):
     product_variant_id = models.ForeignKey(ProductVariant, on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return f'Order by: {self.order_id.address_id.user_id} | {self.product_variant_id.product_id} | Quan: {self.quantity} | Total cost: {self.product_by_quan_coast}'
+        return f'Order id: {self.order_id.id} | Order by: {self.order_id.address_id.user_id} | {self.product_variant_id.product_id} | Quan: {self.quantity} | Total cost: {self.product_by_quan_coast}'
