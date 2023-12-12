@@ -4,14 +4,14 @@ from django.views.generic import *
 from cart.forms import CartAddProductForm
 
 
-
 class HomeViews(TemplateView):
     template_name = "home.html"
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['teams'] = Team.objects.all()
-        context['products'] = Product.objects.all()
+        context['products'] = Product.objects.filter(
+            productvariant__stock_quantity__gt=0).distinct()
         return context
 
 
@@ -22,14 +22,14 @@ class TeamProductsListViews(ListView):
 
     def get_queryset(self):
         team_id = self.kwargs['pk']
-        return Product.objects.filter(team_id=team_id)
+        return Product.objects.filter(team_id=team_id,
+        productvariant__stock_quantity__gt=0).distinct()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         team_id = self.kwargs['pk']
         context['team'] = Team.objects.get(id=team_id)
-        if context:
-            return context
+        return context
 
 
 class ProductDetailVeiw(View):
@@ -43,10 +43,9 @@ class ProductDetailVeiw(View):
 
     def get(self, request, pk):
         product = Product.objects.get(pk=pk)
-        player= product.nba_player
+        player = product.nba_player
         team = product.team_id
         cart_product_form = CartAddProductForm(product_id=product.id)
-
         context = {
                 'product': product,
                 'player': player,
