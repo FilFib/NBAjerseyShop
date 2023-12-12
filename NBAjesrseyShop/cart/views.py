@@ -5,8 +5,6 @@ from django.http import HttpResponseNotFound
 from .cart import Cart
 from .forms import CartAddProductForm, CartUpdateProductForm
 
-
-
 @require_POST
 def cart_add(request, product_id):
     cart = Cart(request)
@@ -19,9 +17,6 @@ def cart_add(request, product_id):
                  product_variant=product_variant,
                  quantity=cd['quantity'],
                  override_quantity=cd['override'])
-    else:
-         # TODO handle error
-        return HttpResponseNotFound("<h1>Page not found</h1>")
     return redirect('cart:cart_detail')
 
 @require_POST
@@ -35,9 +30,6 @@ def cart_update(request, product_variant_id):
                  product_variant=product_variant,
                  quantity=cd['quantity'],
                  override_quantity=cd['override'])
-    else:
-         # TODO handle error
-        return HttpResponseNotFound("<h1>Page not found</h1>")
     return redirect('cart:cart_detail')
 
 @require_POST
@@ -46,7 +38,6 @@ def cart_remove(request, product_variant_id):
     product= get_object_or_404(ProductVariant, id=product_variant_id)
     cart.remove(product)
     return redirect('cart:cart_detail')
-
 
 def cart_detail(request):
     cart = Cart(request)

@@ -39,8 +39,12 @@ class CustomLogoutView(LogoutView):
         response = super().dispatch(request, *args, **kwargs)
         return redirect(reverse_lazy('home'))
 
-
+    
 class CustomLoginView(LoginView):
     def form_valid(self, form):
         response = super().form_valid(form)
-        return redirect(reverse_lazy('home'))
+        next_url = self.request.POST.get('next', None)
+        if next_url:
+            return redirect(reverse_lazy(next_url))
+        else:
+            return redirect(reverse_lazy('home'))
