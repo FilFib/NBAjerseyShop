@@ -32,7 +32,7 @@ class TeamProductsListViews(ListView):
         return context
 
 
-class ProductDetailVeiw(View):
+class ProductDetailView(View):
     model = Product
     template_name = 'detail_product.html'
     context_object_name = 'detail'
@@ -41,7 +41,8 @@ class ProductDetailVeiw(View):
         product_id = self.kwargs['pk']
         return Product.objects.filter(id=product_id)
 
-    def get(self, request, pk):
+    def get(self, request, pk, is_out_of_stock=False):
+        is_out_of_stock = bool(is_out_of_stock)
         product = Product.objects.get(pk=pk)
         player = product.nba_player
         team = product.team_id
@@ -51,5 +52,6 @@ class ProductDetailVeiw(View):
                 'player': player,
                 'team': team,
                 'cart_product_form': cart_product_form,
+                'is_out_of_stock': is_out_of_stock,
         }
         return render(request, 'detail_product.html', context)

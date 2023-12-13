@@ -11,7 +11,9 @@
         Team: {{ team }} </a>
     </p>
     <p>Price: {{ product.price }} €</p>
-
+    {% if is_out_of_stock %}
+    <p>Sorry, this product is out of stock.</p>
+    {% endif %}
     <form action="{% url 'cart:cart_add' product.id %}" method="post"> 
         {{ cart_product_form }}
         {% csrf_token %}
