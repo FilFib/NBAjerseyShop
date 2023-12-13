@@ -52,3 +52,12 @@ class Cart:
 
     def get_total_price(self):
         return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
+    
+    def quantity_by_product(self, product_variant):
+        try:
+            cart = self.cart.copy()
+            product_variant_quantity = cart[str(product_variant.id)]['quantity']
+        except KeyError as e:
+            product_variant_quantity = 0
+        return product_variant_quantity
+    
