@@ -1,23 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>   
-<img src="{{ product.image.url }}" alt="{{ product }} Image" style="width: 40rem;" >
-    <h1>{{ product }}</h1>
-    <p>Description: {{ product.description }}</p>
-    <p>Player: {{ player }}</p>
-    <p>
-        <a href="{% url 'team_products' team.pk %}">
-        Team: {{ team }} </a>
-    </p>
-    <p>Price: {{ product.price }} €</p>
-    {% if is_out_of_stock %}
-    <p>Sorry, this product is out of stock.</p>
-    {% endif %}
-    <form action="{% url 'cart:cart_add' product.id %}" method="post"> 
-        {{ cart_product_form }}
-        {% csrf_token %}
-        <input type="submit" value="Add to cart">
-    </form>
-</div> 
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+
+            <img src="{{ product.image.url }}" alt="{{ product }} Image" style="width: 40rem;"/>
+        </div>
+        <div class="col">
+            <h1>{{ product }}</h1>
+            <p>Description: {{ product.description }}</p>
+            <p>Player: {{ player }}</p>
+            <p>
+                <a href="{% url 'team_products' team.pk %}">
+                    Team: {{ team }} </a>
+            </p>
+            <strong>Price: {{ product.price }} €</strong>
+            {% if is_out_of_stock %}
+            <p class="text-danger">Sorry, this product is out of stock.</p>
+            {% endif %}
+            <form action="{% url 'cart:cart_add' product.id %}" method="post">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-cart"></i><span class="ms-2">Add to cart</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock content %}
