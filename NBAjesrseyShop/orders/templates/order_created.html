@@ -5,11 +5,14 @@
 {% endblock %}
 
 {% block content %}
+<div class="mt-5">
+
   <h1>Thank you</h1>
   <p>Your order has been successfully completed. Your order number is
   <strong>{{ order.id }}</strong>.</p>
 
   <a href="{% url 'home' %}">
-    <button>Back to shop</button>
+    <button class="btn btn-secondary">Back to shop</button>
   </a>
+</div>
 {% endblock %}

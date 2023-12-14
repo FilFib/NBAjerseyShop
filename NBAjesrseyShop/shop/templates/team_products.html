@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
+<div class="mt-5">
   <h2>
     <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" style="max-width: 40px;">
     {{ team.team}} Jerseys
@@ -25,7 +25,9 @@
       </div>
   </div>
   {% else %}
-  <p>There are no products for this team.</p>
+    <div>
+        <p>There are no products for this team.</p>
+    </div>
   {% endif %}
 </div>
 {% endblock content %}
