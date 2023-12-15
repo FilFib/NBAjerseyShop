@@ -23,12 +23,12 @@
                 </button>
             </form>
             <p>
-                <a href="{% url 'team_products' team.pk %}">
+                <a href="{% url 'shop:team_products' team.pk %}">
                 <button class="btn btn-secondary mt-3">{{team}} Jerseys</button>
                 </a>
             </p>
             <p>
-                <a href="{% url 'home' %}">
+                <a href="{% url 'shop:home' %}">
                     <button class="btn btn-secondary">Back to shop</button>
                 </a>
             </p>
