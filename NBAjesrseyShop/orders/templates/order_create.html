@@ -27,17 +27,6 @@
                     {% endwith %}
                     {% endfor %}
                 </table>
-                <!--                <ul>-->
-                <!--                    {% for item in cart %}-->
-                <!--                    {% with product=item.product %}-->
-                <!--                    <li>-->
-                <!--                        <a><img src={{ product.image.url }} style="width: 5rem;"></a>-->
-                <!--                        {{ item.quantity }} x {{ item.product }}, size: {{item.size}},-->
-                <!--                        <span>total price: {{ item.total_price }} €</span>-->
-                <!--                    </li>-->
-                <!--                    {% endwith %}-->
-                <!--                    {% endfor %}-->
-                <!--                </ul>-->
                 <p class="text-end"><strong>Total cost: {{ cart.get_total_price }} €</strong></p>
             </div>
 
