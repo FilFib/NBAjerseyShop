@@ -21,7 +21,7 @@ def cart_add(request, product_id):
                     override_quantity=cd['override'])
         else:
             is_out_of_stock = True
-            return redirect('product_detail', pk = product_id, is_out_of_stock=is_out_of_stock)
+            return redirect('shop:product_detail', pk = product_id, is_out_of_stock=is_out_of_stock)
     return redirect('cart:cart_detail')
 
 @require_POST
@@ -31,10 +31,13 @@ def cart_update(request, product_variant_id):
     if form.is_valid():
         cd = form.cleaned_data
         product_variant = get_object_or_404(ProductVariant, id=product_variant_id)
-        cart.add(product=product_variant.product_id,
-                 product_variant=product_variant,
-                 quantity=cd['quantity'],
-                 override_quantity=cd['override'])
+        if  cd['quantity'] <= product_variant.stock_quantity:
+            cart.add(product=product_variant.product_id,
+                    product_variant=product_variant,
+                    quantity=cd['quantity'],
+                    override_quantity=cd['override'])
+        else:
+            return redirect('cart:cart_detail', product_variant_id=product_variant_id)
     return redirect('cart:cart_detail')
 
 @require_POST
@@ -44,11 +47,14 @@ def cart_remove(request, product_variant_id):
     cart.remove(product)
     return redirect('cart:cart_detail')
 
-def cart_detail(request):
+def cart_detail(request, product_variant_id=None):
     cart = Cart(request)
-    is_out_of_stock = request.GET.get('is_out_of_stock', False)
     for item in cart:
         item['update_quantity_form'] = CartUpdateProductForm(initial={
                             'quantity': item['quantity'],
                             'override': True})
-    return render(request, 'cart_detail.html', {'cart': cart, 'is_out of_stock':is_out_of_stock})
+        if product_variant_id:
+            product_variant= get_object_or_404(ProductVariant, id=product_variant_id)
+            item['is_out_of_stock'] = item['product_variant_id'] == int(product_variant_id)
+            item['stock_quantity'] = product_variant.stock_quantity
+    return render(request, 'cart_detail.html', {'cart': cart})

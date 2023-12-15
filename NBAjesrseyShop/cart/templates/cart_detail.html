@@ -33,6 +33,9 @@ Your shopping cart
             <td>{{ product.product_name }}</td>
             <td>{{ item.size }}</td>
             <td>
+                {% if item.is_out_of_stock %}
+                <p class="text-danger">Sorry, this product is out of stock. Only {{item.stock_quantity}} pieces available.</p>
+                {% endif %}
                 <form action="{% url 'cart:cart_update' item.product_variant_id %}" method="post">
                     {{ item.update_quantity_form.quantity }}
                     {{ item.update_quantity_form.override }}
@@ -62,9 +65,11 @@ Your shopping cart
         <a class="col-6" href="{% url 'shop:home' %}">
             <button class="btn btn-secondary">Continue shopping</button>
         </a>
+        {% if cart %}
         <a class="col-6 text-end" href="{% url 'orders:order_create' %}">
             <button class="btn btn-success">Go to order</button>
         </a>
+        {% endif %}
     </div>
 
 </div>

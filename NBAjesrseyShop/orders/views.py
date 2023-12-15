@@ -28,15 +28,19 @@ def order_create(request):
                                             product_variant_id=product_variant,
                                             quantity=item['quantity'],
                                             product_by_quan_coast=item['total_price'])
+                    product_variant.stock_quantity -= item['quantity']
+                    product_variant.save()
                 cart.clear()
-                return render(request,
-                            'order_created.html',
-                            {'order': order})
+                return redirect('orders:order_created', order_id=order.id)
     else:
         return redirect(reverse_lazy('login') + '?next=orders:order_create')
     return render(request,
                   'order_create.html',
                   {'cart': cart, 'user': user, 'address': address})
+
+def order_created(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    return render(request, 'order_created.html', {'order': order})
 
 def user_orders(request):
     user = request.user
