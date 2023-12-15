@@ -32,7 +32,7 @@ class Product(models.Model):
 
 class ProductVariant(models.Model):
     size = models.CharField(max_length=20)
-    stock_quantity = models.IntegerField(default=0)
+    stock_quantity = models.PositiveIntegerField(default=0)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
