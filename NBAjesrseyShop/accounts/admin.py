@@ -26,5 +26,3 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
-
-# @admin.register(User)

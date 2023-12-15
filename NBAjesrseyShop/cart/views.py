@@ -51,4 +51,4 @@ def cart_detail(request):
         item['update_quantity_form'] = CartUpdateProductForm(initial={
                             'quantity': item['quantity'],
                             'override': True})
-    return render(request, 'cart/detail.html', {'cart': cart, 'is_out of_stock':is_out_of_stock})
+    return render(request, 'cart_detail.html', {'cart': cart, 'is_out of_stock':is_out_of_stock})
