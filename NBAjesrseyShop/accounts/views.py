@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 class RegistrationView(CreateView):
     template_name = 'registration/registration.html'
     form_class = RegistrationForm
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('shop:home')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -37,7 +37,7 @@ class RegistrationView(CreateView):
 class CustomLogoutView(LogoutView):
     def dispatch(self, request, *args, **kwargs):
         response = super().dispatch(request, *args, **kwargs)
-        return redirect(reverse_lazy('home'))
+        return redirect(reverse_lazy('shop:home'))
 
     
 class CustomLoginView(LoginView):
@@ -47,4 +47,4 @@ class CustomLoginView(LoginView):
         if next_url:
             return redirect(reverse_lazy(next_url))
         else:
-            return redirect(reverse_lazy('home'))
+            return redirect(reverse_lazy('shop:home'))
