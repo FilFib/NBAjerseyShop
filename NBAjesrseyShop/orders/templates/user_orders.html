@@ -6,14 +6,14 @@
     <a href="{% url 'home' %}">
         <button class="btn btn-secondary">Back to shop</button>
     </a>
-    <div class="mt-3">
+    <div class="mt-4">
         {% if products_info %}
         <h2><span class="text-success">{{user.first_name}} {{user.last_name}}</span> orders:</h2>
 
         {% for order_info in products_info %}
         <div class="pt-3">
             <div class="row">
-                <h4 class="col-6">#12345</h4>
+                <h4 class="col-6">Order no.: {{ order_info.order_id }}</h4>
                 <span class="col-6 text-end">{{ order_info.order_date }}</span>
             </div>
             <ul>
@@ -21,16 +21,15 @@
                 <li>
                     Product Name: {{ product_info.product_name }}<br>
                     Quantity: {{ product_info.quantity }}<br>
-                    Product by Quantity Coast: {{ product_info.product_by_quan_coast }}<br>
+                    Size:  {{product_info.size}}<br>
+                    Product by quantity cost: {{ product_info.product_by_quan_coast }} €<br>
                 </li>
                 {% endfor %}
             </ul>
-            <h4 class="text-end">Total cost: {{ order_info.total_cost }}</h4><br>
+            <h4 class="text-end">Total cost: {{ order_info.total_cost }} €</h4>
             <hr>
         </div>
         {% endfor %}
-
-        </div>
         {% else %}
         <h2>There are no orders for {{user.first_name}} {{user.last_name}}</h2>
         {% endif %}

@@ -42,14 +42,16 @@ def user_orders(request):
     user = request.user
     address = get_object_or_404(Address, user_id=user.id)
     orders = Order.objects.filter(address_id=address.id).order_by('-order_date')
-    products_by_date = defaultdict(lambda: {'products':[], 'total_cost':0})
+    products_by_date = defaultdict(lambda: {'order_id': None, 'products':[], 'total_cost':0})
     for order in orders:
         order_products = OrderProducts.objects.filter(order_id=order)
+        products_by_date[order.order_date]['order_id'] = order.id
         for order_product in order_products:
             product_name = order_product.product_variant_id.product_id.product_name
             products_by_date[order.order_date]['products'].append({
                 'product_name': product_name,
                 'quantity': order_product.quantity,
+                'size': order_product.product_variant_id.size,
                 'product_by_quan_coast': order_product.product_by_quan_coast,
             })
         products_by_date[order.order_date]['total_cost'] = order.total_cost
