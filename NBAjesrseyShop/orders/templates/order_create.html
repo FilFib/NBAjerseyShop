@@ -41,10 +41,12 @@
                 <button class="btn btn-secondary">Back To Cart</button>
             </a>
             <div class="col-6 text-end">
+                {% if cart %}
                 <form method="post">
                     <button type="submit" class="btn btn-success">Place order</button>
                     {% csrf_token %}
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>

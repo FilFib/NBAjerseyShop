@@ -21,7 +21,7 @@ def cart_add(request, product_id):
                     override_quantity=cd['override'])
         else:
             is_out_of_stock = True
-            return redirect('product_detail', pk = product_id, is_out_of_stock=is_out_of_stock)
+            return redirect('shop:product_detail', pk = product_id, is_out_of_stock=is_out_of_stock)
     return redirect('cart:cart_detail')
 
 @require_POST

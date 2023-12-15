@@ -62,9 +62,11 @@ Your shopping cart
         <a class="col-6" href="{% url 'shop:home' %}">
             <button class="btn btn-secondary">Continue shopping</button>
         </a>
+        {% if cart %}
         <a class="col-6 text-end" href="{% url 'orders:order_create' %}">
             <button class="btn btn-success">Go to order</button>
         </a>
+        {% endif %}
     </div>
 
 </div>
