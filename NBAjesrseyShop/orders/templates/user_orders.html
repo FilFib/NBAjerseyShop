@@ -2,16 +2,37 @@
 
 
 {% block content %}
+<div class="mt-5">
+    <a href="{% url 'home' %}">
+        <button class="btn btn-secondary">Back to shop</button>
+    </a>
+    <div class="mt-4">
+        {% if products_info %}
+        <h2><span class="text-success">{{user.first_name}} {{user.last_name}}</span> orders:</h2>
 
-<h2>{{user.first_name}} {{user.last_name}} Your orders:</h2>
-    {% for order in orders %}
-        <p>Order date: {{ order.order_date }}</p>
-        <p>Product: {{ order_product.product_variant_id.product_id.product_name }} x {{ order_product.quantity }} </p>
-        <p>Total cost: {{ order.total_cost }}</p>
-        <p>Status: {{ order.status }}</p>
-        <p>####################################################</p>
-    {% endfor %}
-<a href="{% url 'home' %}">
-    <button>Back to shop</button>
-</a>
+        {% for order_info in products_info %}
+        <div class="pt-3">
+            <div class="row">
+                <h4 class="col-6">Order no.: {{ order_info.order_id }}</h4>
+                <span class="col-6 text-end">{{ order_info.order_date }}</span>
+            </div>
+            <ul>
+                {% for product_info in order_info.products %}
+                <li>
+                    Product Name: {{ product_info.product_name }}<br>
+                    Quantity: {{ product_info.quantity }}<br>
+                    Size:  {{product_info.size}}<br>
+                    Product by quantity cost: {{ product_info.product_by_quan_coast }} €<br>
+                </li>
+                {% endfor %}
+            </ul>
+            <h4 class="text-end">Total cost: {{ order_info.total_cost }} €</h4>
+            <hr>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h2>There are no orders for {{user.first_name}} {{user.last_name}}</h2>
+        {% endif %}
+    </div>
+</div>
 {% endblock content %}

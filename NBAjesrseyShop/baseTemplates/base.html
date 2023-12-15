@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>{% block title %}NBA Jersey Shop{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 
 <body>
@@ -16,8 +19,28 @@
                     aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <div class="navbar bg-body-tertiary">
                 <ul class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'orders:user_orders' %}">Your orders</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        {% with total_items=cart|length %}
+                          {% if total_items > 0 %}
+                            <div>
+                            <a class="nav-link" href="{% url 'cart:cart_detail' %}">
+                                <i class="bi-cart2"></i>
+                              {{ total_items }} item{{ total_items|pluralize }},
+                              ${{ cart.get_total_price }}
+                            </a>
+                            </div>
+                          {% elif not order %}
+                            <div class="nav-link">Your cart is empty.</div>
+                          {% endif %}
+                        {% endwith %}
+                    </li>
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'registration' %}">Sign up</a>
@@ -26,36 +49,21 @@
                         <a class="nav-link" href="{% url 'login' %}">Log in</a>
                     </li>
                     {% endif %}
+
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Log out</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'orders:user_orders' %}">Your orders</a>
-                    </li>
                     {% endif %}
-                    </li>
-                    <li class="nav-item">
-                        {% with total_items=cart|length %}
-                          {% if total_items > 0 %}
-                            <li>
-                            <a class="nav-link" href="{% url 'cart:cart_detail' %}">Your cart:
-                              {{ total_items }} item{{ total_items|pluralize }},
-                              ${{ cart.get_total_price }}
-                            </a>
-                            </li>
-                          {% elif not order %}
-                            <li class="nav-link">Your cart is empty.</li>
-                          {% endif %}
-                        {% endwith %}
-                    </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <div class="container">
     {% block content %}
 
     {% endblock content %}
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>

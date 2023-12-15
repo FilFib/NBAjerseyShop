@@ -30,5 +30,6 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = ['country', 'zip_code', 'city', 'street', 'house_no', 
-                  'apartment_no', 'default_shipping_address']
-        widgets = {'user_id': forms.HiddenInput()}
+                  'apartment_no']
+        exclude = ['user_id']
+        widgets = {'default_shipping_address': forms.HiddenInput()}

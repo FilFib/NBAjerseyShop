@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div>
-  <h2>
+<div class="mt-5">
+  <a href="{% url 'home' %}">
+    <button class="btn btn-secondary">Back to shop</button>
+  </a>
+  <h2 class="mt-4">
     <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" style="max-width: 40px;">
     {{ team.team}} Jerseys
   </h2>
   
   {% if products %}
-  <div class="container">
+  <div class="container mt-3">
       <div class="row">
           {% for product in products %}
           <div class="card hover" style="width: 20rem;">
@@ -25,7 +28,9 @@
       </div>
   </div>
   {% else %}
-  <p>There are no products for this team.</p>
+    <div>
+        <p>There are no products for this team.</p>
+    </div>
   {% endif %}
 </div>
 {% endblock content %}

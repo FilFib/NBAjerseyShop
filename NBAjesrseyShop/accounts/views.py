@@ -24,6 +24,7 @@ class RegistrationView(CreateView):
         if address_form.is_valid():
             address = address_form.save(commit=False)
             address.user_id = user
+            address.default_shipping_address = True
             address.save()
         else:
             user.delete()
@@ -38,8 +39,12 @@ class CustomLogoutView(LogoutView):
         response = super().dispatch(request, *args, **kwargs)
         return redirect(reverse_lazy('home'))
 
-
+    
 class CustomLoginView(LoginView):
     def form_valid(self, form):
         response = super().form_valid(form)
-        return redirect(reverse_lazy('home'))
+        next_url = self.request.POST.get('next', None)
+        if next_url:
+            return redirect(reverse_lazy(next_url))
+        else:
+            return redirect(reverse_lazy('home'))
