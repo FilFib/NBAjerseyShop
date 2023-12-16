@@ -13,7 +13,7 @@
             <p>Player: {{ player }}</p>
             <strong>Price: {{ product.price }} €</strong>
             {% if is_out_of_stock %}
-            <p class="text-danger">Sorry, this product is out of stock.</p>
+            <p class="text-danger">Sorry, this product is out of stock. Only {{ product_variant.stock_quantity }} pieces available.</p>
             {% endif %}
             <form action="{% url 'cart:cart_add' product.id %}" method="post">
                 {{ cart_product_form }}
