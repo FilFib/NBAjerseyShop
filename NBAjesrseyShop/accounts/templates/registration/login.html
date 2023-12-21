@@ -7,6 +7,10 @@
     <button class="btn btn-secondary">Back to shop</button>
   </a>
   <h1 class="mt-4">Log in</h1>
+  <span>
+    Not a member yet?
+    <a href="{% url 'registration' %}">CREATE ACCOUNT</a>
+  </span>
   <form class ='mt-3' action="{% url 'login' %}" method="post">
       {% if request.GET.next %}
         <input type="hidden" name="next" value="{{ request.GET.next }}">
