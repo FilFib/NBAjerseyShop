@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Team(models.Model):
     team = models.CharField(max_length=50)
     team_image = models.ImageField(upload_to='images/', blank=True)

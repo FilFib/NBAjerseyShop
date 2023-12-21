@@ -12,9 +12,6 @@
     <a href="{% url 'registration' %}">CREATE ACCOUNT</a>
   </span>
   <form class ='mt-3' action="{% url 'login' %}" method="post">
-      {% if request.GET.next %}
-        <input type="hidden" name="next" value="{{ request.GET.next }}">
-      {% endif %}
       {{form.as_p}}
       {% csrf_token %}
       <button type="submit" class="btn btn-success">Log in</button>

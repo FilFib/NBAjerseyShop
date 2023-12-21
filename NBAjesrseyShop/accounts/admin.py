@@ -14,7 +14,6 @@ class CustomUserAdmin(UserAdmin):
         (
             None,
             {
-                'classes': ('wide',),
                 'fields': (
                     'email',
                     'first_name',

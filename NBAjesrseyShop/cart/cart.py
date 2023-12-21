@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.conf import settings
 from shop.models import ProductVariant
 
+
 class Cart:
     def __init__(self, request):
         self.session = request.session

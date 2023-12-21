@@ -26,6 +26,7 @@ class CartAddProductForm(forms.Form):
             size_choices = [(variant.id, variant.size) for variant in product_variants]
             self.fields['size'].choices = size_choices
 
+
 class CartUpdateProductForm(forms.Form):
     quantity = forms.TypedChoiceField(
                                 required=False,
