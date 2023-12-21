@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Team(models.Model):
     team = models.CharField(max_length=50)
     team_image = models.ImageField(upload_to='images/', blank=True)
@@ -26,13 +27,10 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.product_name}'
 
-    def photo(self):
-        return self.image
-
 
 class ProductVariant(models.Model):
     size = models.CharField(max_length=20)
-    stock_quantity = models.IntegerField(default=0)
+    stock_quantity = models.PositiveIntegerField(default=0)
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):

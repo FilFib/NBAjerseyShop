@@ -14,7 +14,6 @@ class CustomUserAdmin(UserAdmin):
         (
             None,
             {
-                'classes': ('wide',),
                 'fields': (
                     'email',
                     'first_name',
@@ -26,5 +25,3 @@ class CustomUserAdmin(UserAdmin):
         ),
     )
 
-
-# @admin.register(User)

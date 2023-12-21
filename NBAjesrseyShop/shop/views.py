@@ -41,7 +41,7 @@ class ProductDetailView(View):
         product_id = self.kwargs['pk']
         return Product.objects.filter(id=product_id)
 
-    def get(self, request, pk, is_out_of_stock=False):
+    def get(self, request, pk, is_out_of_stock=False, product_variant_id=None):
         is_out_of_stock = bool(is_out_of_stock)
         product = Product.objects.get(pk=pk)
         player = product.nba_player
@@ -52,6 +52,8 @@ class ProductDetailView(View):
                 'player': player,
                 'team': team,
                 'cart_product_form': cart_product_form,
-                'is_out_of_stock': is_out_of_stock,
-        }
+                'is_out_of_stock': is_out_of_stock,}
+        if product_variant_id:
+            product_variant = ProductVariant.objects.get(id=product_variant_id)
+            context['product_variant'] = product_variant
         return render(request, 'detail_product.html', context)

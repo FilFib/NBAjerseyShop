@@ -9,7 +9,7 @@
         <ul class="mt-3">
             {% for team in teams %}
             {% if team.team_image %}
-            <a href="{% url 'team_products' team.pk %}" class="me-2">
+            <a href="{% url 'shop:team_products' team.pk %}" class="me-2">
                 <img src="{{ team.team_image.url }}" alt="{{ team.team }} Image" class="hover img-fluid" width="70">
             </a>
             {% endif %}
@@ -24,7 +24,7 @@
                 {% for product in products %}
 
                 <div class="card hover" style="width: 20rem;">
-                    <a href="{% url 'product_detail' product.pk %}">
+                    <a href="{% url 'shop:product_detail' product.pk %}">
                         <img src="{{ product.image.url }}" class="card-img-top" alt="...">
 
                         <div class="card-body">

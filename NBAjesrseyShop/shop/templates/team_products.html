@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="mt-5">
-  <a href="{% url 'home' %}">
+  <a href="{% url 'shop:home' %}">
     <button class="btn btn-secondary">Back to shop</button>
   </a>
   <h2 class="mt-4">
@@ -15,7 +15,7 @@
       <div class="row">
           {% for product in products %}
           <div class="card hover" style="width: 20rem;">
-              <a href="{% url 'product_detail' product.pk %}">
+              <a href="{% url 'shop:product_detail' product.pk %}">
               <img src="{{ product.image.url }}" class="card-img-top" alt="...">
           
               <div class="card-body">

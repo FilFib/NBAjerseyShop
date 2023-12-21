@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.conf import settings
 from shop.models import ProductVariant
 
+
 class Cart:
     def __init__(self, request):
         self.session = request.session
@@ -40,7 +41,7 @@ class Cart:
     def save(self):
         self.session.modified = True
 
-    def remove(self, product_variant):
+    def remove_product(self, product_variant):
         product_variant_id = str(product_variant.id)
         if product_variant_id in self.cart:
             del self.cart[product_variant_id]

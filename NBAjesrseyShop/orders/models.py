@@ -2,6 +2,7 @@ from django.db import models
 from accounts.models import Address
 from shop.models import ProductVariant
 
+
 class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
     payment_date = models.DateTimeField(blank=True, null=True)
