@@ -26,9 +26,6 @@ class Product(models.Model):
     def __str__(self):
         return f'{self.product_name}'
 
-    def photo(self):
-        return self.image
-
 
 class ProductVariant(models.Model):
     size = models.CharField(max_length=20)

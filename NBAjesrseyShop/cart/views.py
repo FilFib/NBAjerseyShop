@@ -41,10 +41,10 @@ def cart_update(request, product_variant_id):
     return redirect('cart:cart_detail')
 
 @require_POST
-def cart_remove(request, product_variant_id):
+def cart_remove_product(request, product_variant_id):
     cart = Cart(request)
     product= get_object_or_404(ProductVariant, id=product_variant_id)
-    cart.remove(product)
+    cart.remove_product(product)
     return redirect('cart:cart_detail')
 
 def cart_detail(request, product_variant_id=None):

@@ -44,7 +44,7 @@ Your shopping cart
                 </form>
             </td>
             <td>
-                <form action="{% url 'cart:cart_remove' item.product_variant_id %}" method="post">
+                <form action="{% url 'cart:cart_remove_product' item.product_variant_id %}" method="post">
                     <button type="submit" class="btn btn-danger">Remove</button>
                     {% csrf_token %}
                 </form>
