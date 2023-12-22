@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from .models import *
 from django.views.generic import *
 from cart.forms import CartAddProductForm
@@ -32,28 +32,33 @@ class TeamProductsListViews(ListView):
         return context
 
 
-class ProductDetailView(View):
+class ProductDetailView(DetailView):
     model = Product
     template_name = 'detail_product.html'
-    context_object_name = 'detail'
+    context_object_name = 'product'
 
-    def get_queryset(self):
-        product_id = self.kwargs['pk']
-        return Product.objects.filter(id=product_id)
+    def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
 
-    def get(self, request, pk, is_out_of_stock=False, product_variant_id=None):
-        is_out_of_stock = bool(is_out_of_stock)
-        product = Product.objects.get(pk=pk)
-        player = product.nba_player
-        team = product.team_id
-        cart_product_form = CartAddProductForm(product_id=product.id)
-        context = {
-                'product': product,
+            is_out_of_stock = bool(self.kwargs.get('is_out_of_stock', False))
+            product_variant_id = self.kwargs.get('product_variant_id')
+
+            player = context['product'].nba_player
+            team = context['product'].team_id
+            cart_product_form = CartAddProductForm(product_id=context['product'].id)
+
+            context.update({
                 'player': player,
                 'team': team,
                 'cart_product_form': cart_product_form,
-                'is_out_of_stock': is_out_of_stock,}
-        if product_variant_id:
-            product_variant = ProductVariant.objects.get(id=product_variant_id)
-            context['product_variant'] = product_variant
-        return render(request, 'detail_product.html', context)
+                'is_out_of_stock': is_out_of_stock,
+            })
+
+            if product_variant_id:
+                try:
+                    product_variant = ProductVariant.objects.get(id=product_variant_id)
+                    context['product_variant'] = product_variant
+                except ProductVariant.DoesNotExist:
+                    pass
+
+            return context
