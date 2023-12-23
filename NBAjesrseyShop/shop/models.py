@@ -20,9 +20,9 @@ class Product(models.Model):
     product_name = models.CharField(max_length=50)
     image = models.ImageField(upload_to="images/", blank=True)
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    description = models.TextField(null=True, blank=True)
-    team_id = models.ForeignKey(Team, on_delete=models.DO_NOTHING, blank=True, null=True)
-    nba_player = models.ForeignKey(NbaPlayer, on_delete=models.DO_NOTHING, blank=True, null=True)
+    description = models.TextField(blank=True)
+    team_id = models.ForeignKey(Team, on_delete=models.DO_NOTHING, blank=True)
+    nba_player = models.ForeignKey(NbaPlayer, on_delete=models.DO_NOTHING, blank=True)
 
     def __str__(self):
         return f'{self.product_name}'

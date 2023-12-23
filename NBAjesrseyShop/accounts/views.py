@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from .forms import RegistrationForm, AddressForm
 from django.shortcuts import redirect
+from cart.cart import Cart
 
 
 class RegistrationView(CreateView):
@@ -31,7 +32,12 @@ class RegistrationView(CreateView):
             return self.form_invalid(form)
 
         login(self.request, user)
-        return redirect(self.success_url)
+        cart = Cart(self.request)
+        next_url = self.request.session.pop('next_url', None)
+        if next_url and cart:
+            return redirect(reverse_lazy(next_url))
+        else:
+            return redirect(self.success_url)
 
 
 class CustomLogoutView(LogoutView):
@@ -49,8 +55,9 @@ class CustomLoginView(LoginView):
      
     def form_valid(self, form):
         response = super().form_valid(form)
+        cart = Cart(self.request)
         next_url = self.request.session.pop('next_url', None)
-        if next_url:
+        if next_url and cart:
             return redirect(reverse_lazy(next_url))
         else:
             return redirect(reverse_lazy('shop:home'))

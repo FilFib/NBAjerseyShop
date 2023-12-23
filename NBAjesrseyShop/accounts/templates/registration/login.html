@@ -3,9 +3,18 @@
 
 {% block content %}
 <div class="mt-5">
-  <a href="{% url 'shop:home' %}">
-    <button class="btn btn-secondary">Back to shop</button>
-  </a>
+  <p>
+    <a href="{% url 'shop:home' %}">
+      <button class="btn btn-secondary">Back to shop</button>
+    </a>
+  </p>
+  <p>
+    {% if request.session.next_url and request.session.cart %}
+      <a href="{% url 'cart:cart_detail' %}">
+        <button class="btn btn-secondary">Back To Cart</button>
+      </a>
+    {% endif %}
+  </p>
   <h1 class="mt-4">Log in</h1>
   <span>
     Not a member yet?
