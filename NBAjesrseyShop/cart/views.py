@@ -16,6 +16,7 @@ def cart_add(request, product_id):
         cd = form.cleaned_data
         product_variant = get_object_or_404(ProductVariant, id=int(cd['size']))
         total_quantity = cart.quantity_by_product(product_variant) + cd['quantity']
+
         if  total_quantity <= product_variant.stock_quantity:
             cart.add(product=product,
                     product_variant=product_variant,
@@ -23,7 +24,10 @@ def cart_add(request, product_id):
                     override_quantity=cd['override'])
         else:
             is_out_of_stock = True
-            return redirect('shop:product_detail', pk = product_id, is_out_of_stock=is_out_of_stock, product_variant_id=product_variant.id)
+            return redirect('shop:product_detail', pk = product_id, 
+                            is_out_of_stock=is_out_of_stock, 
+                            product_variant_id=product_variant.id)
+    
     return redirect('cart:cart_detail')
 
 
@@ -35,6 +39,7 @@ def cart_update(request, product_variant_id):
     if form.is_valid():
         cd = form.cleaned_data
         product_variant = get_object_or_404(ProductVariant, id=product_variant_id)
+        
         if  cd['quantity'] <= product_variant.stock_quantity:
             cart.add(product=product_variant.product_id,
                     product_variant=product_variant,
@@ -61,8 +66,10 @@ def cart_detail(request, product_variant_id=None):
         item['update_quantity_form'] = CartUpdateProductForm(initial={
                             'quantity': item['quantity'],
                             'override': True})
+        
         if product_variant_id:
             product_variant= get_object_or_404(ProductVariant, id=product_variant_id)
             item['is_out_of_stock'] = item['product_variant_id'] == int(product_variant_id)
             item['stock_quantity'] = product_variant.stock_quantity
+    
     return render(request, 'cart_detail.html', {'cart': cart})

@@ -25,7 +25,7 @@
 
                 <div class="card hover" style="width: 20rem;">
                     <a href="{% url 'shop:product_detail' product.pk %}">
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product }} Image">
 
                         <div class="card-body">
                             <h6 class="card-title">{{ product }}</h6>
