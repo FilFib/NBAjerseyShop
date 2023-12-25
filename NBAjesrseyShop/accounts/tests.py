@@ -5,6 +5,7 @@ from accounts.models import  User
 
 class RegistrationViewTest(TestCase):
 
+    # Tworzę dane testowe
     def setUp(self):
         self.url = reverse('registration')
         self.user_data = {
@@ -35,11 +36,11 @@ class RegistrationViewTest(TestCase):
     def test_registration_view_post_success(self):
         response = self.client.post(self.url, data={**self.user_data, **self.address}, follow=True)
 
-        # Sprawdź, czy użytkownik został pomyślnie zarejestrowany
+        # Sprawdenie, czy użytkownik został pomyślnie zarejestrowany
         self.assertEqual(response.status_code, 200)
         self.assertTrue(User.objects.filter(email='abc@cd.ef').exists())
 
-        # Sprawdź, czy adres został dodany pomyślnie
+        # Sprawdenie, czy adres został dodany pomyślnie
         user = User.objects.get(email='abc@cd.ef')
         self.assertTrue(Address.objects.filter(user_id=user).exists())
 
