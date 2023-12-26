@@ -7,10 +7,10 @@
         <button class="btn btn-secondary">Back to shop</button>
     </a>
     <div class="mt-4">
-        {% if products_info %}
+        {% if orders_info %}
         <h2><span class="text-success">{{user.first_name}} {{user.last_name}}</span> orders:</h2>
 
-        {% for order_info in products_info %}
+        {% for order_info in orders_info %}
         <div class="pt-3">
             <div class="row">
                 <h4 class="col-6">Order no.: {{ order_info.order_id }}</h4>

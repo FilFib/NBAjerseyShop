@@ -7,7 +7,6 @@ PRODUCT_QUANTITY_CHOICES = [(i, str(i)) for i in range(1, 11)]
 
 class CartAddProductForm(forms.Form):
     quantity = forms.TypedChoiceField(
-                                required=False,
                                 choices=PRODUCT_QUANTITY_CHOICES,
                                 coerce=int)
     override = forms.BooleanField(required=False,
@@ -29,7 +28,6 @@ class CartAddProductForm(forms.Form):
 
 class CartUpdateProductForm(forms.Form):
     quantity = forms.TypedChoiceField(
-                                required=False,
                                 choices=PRODUCT_QUANTITY_CHOICES,
                                 coerce=int)
     override = forms.BooleanField(required=False,

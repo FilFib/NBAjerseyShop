@@ -56,7 +56,7 @@ class Cart:
     
     def quantity_by_product(self, product_variant):
         try:
-            cart = self.cart.copy()
+            cart = self.cart
             product_variant_quantity = cart[str(product_variant.id)]['quantity']
         except KeyError as e:
             product_variant_quantity = 0
