@@ -3,12 +3,13 @@
 Welcome to the NBA Jersey Shop, online store selling NBA player jerseys.
 
 
+
 ## Installation process:
 
 1. Clone the repository to your local computer:
 
     ```
-    $ git clone 'https://github.com/FilFib/NBAjesrseyShop.git'
+    $ git clone 'https://github.com/FilFib/NBAjerseyShop.git'
     ```
 
 2. Navigate to the project directory:
@@ -53,9 +54,8 @@ Welcome to the NBA Jersey Shop, online store selling NBA player jerseys.
 
 7. (Optional) Change the database to the one available at the link below with all NBA teams saved and 10 sample player jerseys:
 
-    ```
-    https://drive.google.com/drive/folders/1vmaOkXcj8qwCzvUDUeTdR3fSuZd0w0zx?usp=sharing
-    ```
+    https://drive.google.com/drive/folders/1vmaOkXcj8qwCzvUDUeTdR3fSuZd0w0zx?usp=sharing 
+
 
 
 ## Technologies
@@ -69,6 +69,7 @@ For the frontend, we used HTML5, CSS3 and Bootstrap5, which allowed us to create
 We provided a strong backend foundation by using Python 3.11 and Django 4.2. Python offers the latest features, bug fixes and optimizations, which contributes to effective and modern application development. Django 4.2, as a high-level web framework, provides tools for quickly creating solid web applications.
 
 
+
 ## Authors:
 
 <table>
@@ -76,7 +77,7 @@ We provided a strong backend foundation by using Python 3.11 and Django 4.2. Pyt
       <ul>
         <b>Filip Fibakiewicz</b>
         <p>Junior Python Developer</p>
-        <li><a href="www.linkedin.com/in/filfib">LinkedIn Profile</a></li>
+        <li><a href="https://www.linkedin.com/in/filfib/">LinkedIn Profile</a></li>
       </ul>
     </td>
   </tr>
