@@ -34,7 +34,7 @@ def order_create(request):
             return redirect('orders:order_created', order_id=order.id)
     
     else:
-        return redirect(reverse_lazy('login') + '?next=orders:order_create')
+        return redirect(reverse_lazy('login') + ('?next=orders:order_create'))
     
     return render(request,
                   'order_create.html',
@@ -70,3 +70,4 @@ def user_orders(request):
                      orders_by_date.items()]
     
     return render(request, 'user_orders.html', {'orders_info': orders_info})
+
