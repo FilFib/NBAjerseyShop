@@ -9,7 +9,7 @@ Welcome to the NBA Jersey Shop, online store selling NBA player jerseys.
 1. Clone the repository to your local computer:
 
     ```
-    $ git clone 'https://github.com/FilFib/NBAjesrseyShop.git'
+    $ git clone 'https://github.com/FilFib/NBAjerseyShop.git'
     ```
 
 2. Navigate to the project directory:
