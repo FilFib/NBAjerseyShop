@@ -28,8 +28,20 @@ class CartAddProductForm(forms.Form):
 
 class CartUpdateProductForm(forms.Form):
     quantity = forms.TypedChoiceField(
-                                choices=PRODUCT_QUANTITY_CHOICES,
+                                choices=[],
                                 coerce=int)
     override = forms.BooleanField(required=False,
                                   initial=False,
                                   widget=forms.HiddenInput)
+    
+    def __init__(self, *args, **kwargs):
+        product_variant_id = kwargs.pop('product_variant_id', [])
+        product_variant = ProductVariant.objects.get(id=product_variant_id)
+        super(CartUpdateProductForm, self).__init__(*args, **kwargs)
+
+        if product_variant.stock_quantity < 10:
+            quantity_choices = [(i, str(i)) for i in range(1, product_variant.stock_quantity + 1)]
+        else:
+            quantity_choices = [(i, str(i)) for i in range(1, 11)]
+        
+        self.fields['quantity'].choices = quantity_choices
