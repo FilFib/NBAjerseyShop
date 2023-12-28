@@ -8,29 +8,30 @@ class CartViewTest(TestCase):
     # Tworzymy dane testowe
     def setUp(self):
         self.client = Client()
-        test_team = Team.objects.create(team='test_team')
-        test_nba_player = NbaPlayer.objects.create(nba_player='test_nba_player')
-        self.product = Product.objects.create(product_name='test_product', price='10.0',
-                                              nba_player_id=test_nba_player.id,
-                                              team_id_id=test_team.id)
-        self.product_variant = ProductVariant.objects.create(product_id=self.product, size='XL', stock_quantity=10)
+        self.test_team = Team.objects.create(team='test_team')
+        self.test_nba_player = NbaPlayer.objects.create(nba_player='test_nba_player')
+        self.test_product = Product.objects.create(product_name='test_product', price='10.0',
+                                              nba_player_id=self.test_nba_player.id,
+                                              team_id_id=self.test_team.id)
+        self.test_product_variant = ProductVariant.objects.create(product_id=self.test_product, size='XL', stock_quantity=10)
 
     def test_cart_add_view(self):
-        url = reverse('cart:cart_add', args=[self.product.id])
-        response = self.client.post(url, {'size': self.product_variant.id, 'quantity': 2, 'override': False})
+        url = reverse('cart:cart_add', args=[self.test_product.id])
+        response = self.client.post(url, {'size': self.test_product_variant, 'quantity': 2, 'override': False})
 
         # Sprawdzenie czy strony są przekierowane
         self.assertEqual(response.status_code, 302)
 
     def test_cart_update_view(self):
-        url = reverse('cart:cart_update', args=[self.product_variant.id])
+        url = reverse('cart:cart_update', args=[self.test_product_variant.id])
         response = self.client.post(url, {'quantity': 3, 'override': True})
 
         # Sprawdzenie, czy strony są przekierowane
         self.assertEqual(response.status_code, 302)
 
     def test_cart_remove_view(self):
-        url = reverse('cart:cart_remove_product', args=[self.product_variant.id])
+        id = self.test_product_variant.pk
+        url = reverse('cart:cart_remove_product', args=[id])
         response = self.client.post(url)
 
         # Sprawdzenie, czy strony są przekierowane
@@ -48,19 +49,19 @@ class CartFormsTest(TestCase):
         self.client = Client()
         test_team = Team.objects.create(team='test_team')
         test_nba_player = NbaPlayer.objects.create(nba_player='test_nba_player')
-        self.product = Product.objects.create(product_name='test_product', price='10.0',
+        self.test_product = Product.objects.create(product_name='test_product', price='10.0',
                                               nba_player_id=test_nba_player.id,
                                               team_id_id=test_team.id)
-        self.product_variant = ProductVariant.objects.create(product_id=self.product, size='XL', stock_quantity=10)
+        self.test_product_variant = ProductVariant.objects.create(product_id=self.test_product, size='XL', stock_quantity=10)
 
     # Sprawdzam ważność formularza dodawania produktu do koszyka
     def test_cart_add_product_form_valid_data(self):
         form_data = {
             'quantity': 2,
             'override': False,
-            'size': self.product_variant.id
+            'size': self.test_product_variant.id
         }
-        form = CartAddProductForm(product_id=self.product.id, data=form_data)
+        form = CartAddProductForm(product_id=self.test_product.id, data=form_data)
         self.assertTrue(form.is_valid())
 
     # Sprawdzam ważność formularza przy próbie dodania większej ilości produktów niż jest ich w bazie danych
@@ -68,9 +69,9 @@ class CartFormsTest(TestCase):
         form_data = {
             'quantity': 12,
             'override': False,
-            'size': self.product_variant.id
+            'size': self.test_product_variant.id
         }
-        form = CartAddProductForm(product_id=self.product.id, data=form_data)
+        form = CartAddProductForm(product_id=self.test_product.id, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('quantity', form.errors)
 
@@ -80,7 +81,7 @@ class CartFormsTest(TestCase):
             'quantity': 3,
             'override': True
         }
-        form = CartUpdateProductForm(data=form_data)
+        form = CartUpdateProductForm(product_variant_id=self.test_product_variant.id, data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_cart_update_product_form_invalid_data(self):
@@ -88,6 +89,6 @@ class CartFormsTest(TestCase):
             'quantity': 12,  # próba zaktualizowania koszyka o wartość powyżej ilości dostępnej
             'override': True
         }
-        form = CartUpdateProductForm(data=form_data)
+        form = CartUpdateProductForm(product_variant_id=self.test_product_variant.id, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('quantity', form.errors)

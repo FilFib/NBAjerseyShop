@@ -90,6 +90,8 @@ class RegistrationViewTest(TestCase):
         self.assertFalse(response.context['user'].is_authenticated)
 
     def test_accounts_models(self):
+        # Test modeli aplikacji accounts
+        # Przygotowanie danych testowych
         test_user = User.objects.create(
             email=' ab@cd.ef',
             password= 'testpassword',
