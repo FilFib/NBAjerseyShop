@@ -80,7 +80,7 @@ class CartFormsTest(TestCase):
             'quantity': 3,
             'override': True
         }
-        form = CartUpdateProductForm(data=form_data)
+        form = CartUpdateProductForm(product_variant_id=self.product_variant.id, data=form_data)
         self.assertTrue(form.is_valid())
 
     def test_cart_update_product_form_invalid_data(self):
@@ -88,6 +88,6 @@ class CartFormsTest(TestCase):
             'quantity': 12,  # próba zaktualizowania koszyka o wartość powyżej ilości dostępnej
             'override': True
         }
-        form = CartUpdateProductForm(data=form_data)
+        form = CartUpdateProductForm(product_variant_id=self.product_variant.id, data=form_data)
         self.assertFalse(form.is_valid())
         self.assertIn('quantity', form.errors)
