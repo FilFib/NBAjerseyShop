@@ -83,26 +83,26 @@ The aim of the project was to create an online store enabling users to buy NBA p
 ### Accounts app:
 An application created to manage user accounts. Enables registration, login and logout.
 
-Registrtaion:
+#### Registrtaion:
 
 ![Registrationpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/registrationpage.PNG?raw=true)
 
-Login:
+#### Login:
 
 ![Loginpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/loginpage.PNG?raw=true)
 
 ### Shop app:
 The shop application is responsible for displaying products on the home page and on the page with jerseys of a specific selected team, as well as on the page with details of the selected product.
 
-Homepage:
+#### Homepage:
 
 ![Homepage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/homepage.PNG?raw=true)
 
-Team jerseys page:
+#### Team jerseys page:
 
 ![Teampage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/teampage.PNG?raw=true)
 
-Jersey detail page:
+#### Jersey detail page:
 
 ![Jerseydetail](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/jerseydetail.PNG?raw=true)
 
@@ -110,7 +110,7 @@ Jersey detail page:
 
 It allows you to view the contents of the basket, add and remove products, as well as update the quantity of the selected product. Everything was implemented using sessions.
 
-Cart view:
+#### Cart view:
 
 ![Cart](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/cart.PNG?raw=true)
 
@@ -118,22 +118,23 @@ Cart view:
 
 Responsible for placing orders and saving them to the database. This application also allows you to view previously placed orders.
 
-Order page:
+#### Order page:
 
 ![Orderpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/orderpage.PNG?raw=true)
 
-Thank you page after placing your order:
+#### Thank you page after placing your order:
 
-![Orderpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/ordercreatedpage.PNG?raw=true)
+![Ordercreated](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/ordercreatedpage.PNG?raw=true)
 
-User's order page:
+#### User's order page:
 
-![Orderpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/orderspage.PNG?raw=true)
+![Orderspage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/orderspage.PNG?raw=true)
 
 ### Administration panel:
 
 All order processing and adding products is possible thanks to the administration panel.
-![Orderpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/adminpanel.PNG?raw=true)
+
+![Adminpanel](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/adminpanel.PNG?raw=true)
 
 ## Authors:
 
