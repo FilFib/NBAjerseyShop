@@ -2,7 +2,13 @@
 
 Welcome to the NBA Jersey Shop, online store selling NBA player jerseys.
 
+![Homepage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/homepage.PNG?raw=true)
 
+## Table of contents
+* [Installation process](#installation-process)
+* [Technologies](#technologies)
+* [Features](#features)
+* [About authors](#authors)
 
 ## Installation process:
 
@@ -69,6 +75,65 @@ For the frontend, we used HTML5, CSS3 and Bootstrap5, which allowed us to create
 We provided a strong backend foundation by using Python 3.11 and Django 4.2. Python offers the latest features, bug fixes and optimizations, which contributes to effective and modern application development. Django 4.2, as a high-level web framework, provides tools for quickly creating solid web applications.
 
 
+
+## Features
+
+The aim of the project was to create an online store enabling users to buy NBA players' jerseys, where orders and adding products are handled by the administrator. The website was created to improve skills in the Django framework, as a culmination of the comprehensive "Python from scratch" course at Software Development Acadamy.
+
+### Accounts app:
+An application created to manage user accounts. Enables registration, login and logout.
+
+Registrtaion:
+
+![Registrationpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/registrationpage.PNG?raw=true)
+
+Login:
+
+![Loginpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/loginpage.PNG?raw=true)
+
+### Shop app:
+The shop application is responsible for displaying products on the home page and on the page with jerseys of a specific selected team, as well as on the page with details of the selected product.
+
+Homepage:
+
+![Homepage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/homepage.PNG?raw=true)
+
+Team jerseys page:
+
+![Teampage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/teampage.PNG?raw=true)
+
+Jersey detail page:
+
+![Jerseydetail](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/jerseydetail.PNG?raw=true)
+
+### Cart app:
+
+It allows you to view the contents of the basket, add and remove products, as well as update the quantity of the selected product. Everything was implemented using sessions.
+
+Cart view:
+
+![Cart](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/cart.PNG?raw=true)
+
+### Orders app:
+
+Responsible for placing orders and saving them to the database. This application also allows you to view previously placed orders.
+
+Order page:
+
+![Orderpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/orderpage.PNG?raw=true)
+
+Thank you page after placing your order:
+
+![Orderpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/ordercreatedpage.PNG?raw=true)
+
+User's order page:
+
+![Orderpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/orderspage.PNG?raw=true)
+
+### Administration panel:
+
+All order processing and adding products is possible thanks to the administration panel.
+![Orderpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/adminpanel.PNG?raw=true)
 
 ## Authors:
 
