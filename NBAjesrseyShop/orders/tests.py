@@ -76,44 +76,6 @@ class OrdersViewsTests(TestCase):
                                                              order_id=self.testOrder,
                                                              product_variant_id=self.testProductVariant)
 
-    # def test_order_create_authenticated_user(self):
-    #     user = self.testUser
-    #     self.client.force_login(user)
-    #     # Sprawdzenie, czy użytkownik jest zalogowany
-    #     self.assertIn('_auth_user_id', self.client.session)
-    #     self.assertTrue(int(self.client.session['_auth_user_id']) > 0)
-    #     cart_data = {
-    #         'product_variant_id': self.testProductVariant,
-    #         'quantity': 2,
-    #         'total_price': 1000
-    #     }
-    #     url = reverse('orders:order_create')
-    #     print(f'url: {url}')
-    #     response = self.client.post(reverse(url), data={'cart':cart_data, 'user':user, 'address':self.testAddress})
-    #     print(f'Response: {response}')
-    #     self.assertEqual(response.status_code, 302)
-    #     order_ = self.testOrder
-    #     order_product = OrderProducts.objects.filter(order_id=self.testOrder).first()
-    #     self.assertIsNotNone(order_product)
-    #     self.assertEqual(order_product.quantity, 2)
-
-    #     product_variant = order_product.product_variant_id
-    #     self.assertEqual(product_variant.stock_quantity, 8)
-
-    #     self.client.logout()
-
-
-
-
-
-
-    # def test_order_create_unauthenticated_user(self):
-    #     url = reverse('login') 
-    #     response = self.client.post(url, follow=True)
-    #     self.assertEqual(response.status_code, 302)
-
-    
-
 
 class OrederViewsUserOrdersTest(TestCase):
     '''Klasa do testowania widoku user orders'''

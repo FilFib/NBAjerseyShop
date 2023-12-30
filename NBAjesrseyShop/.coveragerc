@@ -1,2 +1,10 @@
 [run]
-omit = */__init__.py
+omit = 
+    */__init__.py
+    /venv/
+    /media/
+    /README_img/
+    /static/
+    /usr/
+    /migrations/
+    */settings.py
