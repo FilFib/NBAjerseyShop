@@ -6,4 +6,5 @@ projvenv
 .coverage
 htmlcov
 .coveragerc
+.pytest_cache
 

@@ -83,11 +83,11 @@ The aim of the project was to create an online store enabling users to buy NBA p
 ### Accounts app:
 An application created to manage user accounts. Enables registration, login and logout.
 
-#### Registrtaion:
+#### Registration:
 
 ![Registrationpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/registrationpage.PNG?raw=true)
 
-#### Login:
+#### Log in:
 
 ![Loginpage](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/loginpage.PNG?raw=true)
 
