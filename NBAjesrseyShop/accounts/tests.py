@@ -6,7 +6,7 @@ from accounts.models import  User
 
 class RegistrationViewTest(TestCase):
 
-    # Tworzę dane testowe
+    # We create test data
     def setUp(self):
         self.url = reverse('registration')
         self.user_data = {
@@ -37,61 +37,46 @@ class RegistrationViewTest(TestCase):
     def test_registration_view_post_success(self):
         response = self.client.post(self.url, data={**self.user_data, **self.address}, follow=True)
     
-        # Sprawdenie, czy użytkownik został pomyślnie zarejestrowany
+        # Verify that the user has been successfully registered
         self.assertEqual(response.status_code, 200)
         self.assertTrue(User.objects.filter(email='abc@cd.ef').exists())
     
-        # Sprawdenie, czy adres został dodany pomyślnie
+        # Check if the address was added successfully
         user = User.objects.get(email='abc@cd.ef')
         self.assertTrue(Address.objects.filter(user_id=user).exists())
     
-        # Sprawdź, czy użytkownik jest zalogowany
+        # Check if the user is logged in
         self.assertTrue(response.context['user'].is_authenticated)
         self.assertRedirects(response, reverse('shop:home'))
     
     def test_registration_view_post_failure(self):
-        self.user_failure = {
-            'first_name': 'test',
-            'last_name': 'testsurname',
-            'email': 'abc@cd.ef',
-            'password': 'testpassword',
-            'confirm_password': 'testpassword'
-        }
-        self.address_failure = {
-            'country': '',
-            'zip_code': '12-234',
-            'city': 'testcity',
-            'street': 'teststreet',
-            'house_no': '6',
-            'apartment_no': '66'
-        }
-    
-        # Test sytuacji, gdy rejestracja nie powiedzie się (np. błędne dane)
+
+        # Test for situations when registration fails (e.g. incorrect data)
         response = self.client.post(self.url, data={}, follow=True)
     
-        # Sprawdzenie, czy formularz jest powiązwiązany
+        # Check if the form is related
         self.assertTrue(response.context['form'].is_bound)
     
-        # Sprawdzenie, czy użytkownik nie został zarejestrowany
+        # Check if the user has not been registered
         self.assertFalse(User.objects.filter(email='abc@cd.ef').exists())
     
-        # Sprawdzenie, czy formularz rejestracji zawiera błędy
+        # Checking whether the registration form contains errors
         form_errors = response.context['form'].errors
         self.assertTrue(form_errors)
     
-        # Sprawdzenie, czy formularz nie jest ważny
+        # Checking if the form is not valid
         address_form = AddressForm(data={})
         self.assertFalse(address_form.is_valid())
     
-        # Sprawdzenie, czy strona zawiera błąd
+        # Checking if the page contains an error
         self.assertContains(response, 'This field is required', count=5)
     
-        # Sprawdzenie, czy użytkownik nie jest zalogowany
+        # Check if the user is not logged in
         self.assertFalse(response.context['user'].is_authenticated)
 
     def test_accounts_models(self):
-        # Test modeli aplikacji accounts
-        # Przygotowanie danych testowych
+        # Test models of the accounts application
+        # Preparation of test data
         test_user = User.objects.create(
             email=' ab@cd.ef',
             password= 'testpassword',
