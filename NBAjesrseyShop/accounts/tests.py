@@ -1,8 +1,8 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.urls import reverse
 from .forms import *
 from accounts.models import  User
-from django.contrib.auth import get_user_model
+
 
 class RegistrationViewTest(TestCase):
 
@@ -119,7 +119,3 @@ class RegistrationViewTest(TestCase):
         self.assertEqual(test_address.country, 'testcountry')
         self.assertNotEquals(test_address.house_no, '')
         self.assertFalse(test_address.default_shipping_address)
-
-
-
-        
