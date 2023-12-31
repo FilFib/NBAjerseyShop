@@ -7,5 +7,4 @@ omit =
     */static/*
     /usr/*
     */migrations/*
-    */settings.py
-    */tests.py
+
