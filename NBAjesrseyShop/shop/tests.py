@@ -1,14 +1,14 @@
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
-
 from .views import *
 from .models import Team, NbaPlayer, Product, ProductVariant
 
 
-class ModelTests(TestCase):
-    '''Klasa do testowania modeli aplikacji shop'''
+class ShopModelTests(TestCase):
+    '''A class for testing shop application models'''
+
+    # We create test data
     def setUp(self):
-        # Tworzę dane dla modeli
         self.team = Team.objects.create(team='test_team')
         self.nba_player = NbaPlayer.objects.create(nba_player='test_player')
         self.product = Product.objects.create(
@@ -40,107 +40,111 @@ class ModelTests(TestCase):
         expected_str = f'{self.product.product_name} | Size: M | Stock quantity: 10'
         self.assertEqual(str(variant), expected_str)
 
+
 class HomeViewsTest(TestCase):
-    '''Klasa do testowania widoków strony domowej'''
+    '''A class for testing home page views'''
+
+    # We create test data
     def setUp(self):
         self.factory = RequestFactory()
-
-    def test_home_view(self):
-        # Tworzę dane testowe
-        team = Team.objects.create(team='Test Team')
-        player = NbaPlayer.objects.create(nba_player='Test Player')
-        product = Product.objects.create(
+        self.team = Team.objects.create(team='Test Team')
+        self.player = NbaPlayer.objects.create(nba_player='Test Player')
+        self.product = Product.objects.create(
             product_name='Test Product',
             price=19.99,
-            team_id=team,
-            nba_player=player
+            team_id=self.team,
+            nba_player=self.player
         )
-        variant = ProductVariant.objects.create(
+        self.product_variant = ProductVariant.objects.create(
             size='M',
-            stock_quantity=5,
-            product_id=product
+            stock_quantity=10,
+            product_id=self.product
         )
 
-        # Tworzę request do wywołania strony oraz sprawdzam status kod 200 - OK
+    def test_home_view(self):
+     
+        # I create a request to invoke the website and check the status - code 200 - OK
         request = self.factory.get(reverse('shop:home'))
         response = HomeViews.as_view()(request)
 
         self.assertEqual(response.status_code, 200)
 
-        # Sprawdzam czy założone dane pojawiają sie w kontekscie
+        # I check whether the assumed data appears in the context
         teams_in_context = response.context_data['teams']
         products_in_context = response.context_data['products']
 
-        self.assertIn(team, teams_in_context)
-        self.assertIn(product, products_in_context)
-        self.assertEqual(len(products_in_context), 1)  # Sprawdzam czy tylko produkty z ilością magazynową większą od 0 się pojawiają
+        self.assertIn(self.team, teams_in_context)
+        self.assertIn(self.product, products_in_context)
+        # I check whether only products with stock quantity greater than 0 appear
+        self.assertEqual(len(products_in_context), 1)  
+
 
 class TeamProductsListViewsTest(TestCase):
-    '''Klasa do testowania widoków strony produktów'''
+    '''A class for testing product page views'''
+
+    # We create test data
     def setUp(self):
         self.factory = RequestFactory()
-
-    def test_team_products_list_view(self):
-        # Tworzę dane testowe
-        team = Team.objects.create(team='Test Team')
-        player = NbaPlayer.objects.create(nba_player='Test Player')
-        product = Product.objects.create(
+        self.team = Team.objects.create(team='Test Team')
+        self.player = NbaPlayer.objects.create(nba_player='Test Player')
+        self.product = Product.objects.create(
             product_name='Test Product',
             price=100,
-            team_id=team,
-            nba_player=player
+            team_id=self.team,
+            nba_player=self.player
         )
-        variant = ProductVariant.objects.create(
+        self.variant = ProductVariant.objects.create(
             size='M',
             stock_quantity=5,
-            product_id=product
+            product_id=self.product
         )
-
-        # Tworzymy zapytanie i wywołujemy widok i sprawdzamy status 200 - OK
-        team_products_url = reverse('shop:team_products', kwargs={'pk': team.id})
+    def test_team_products_list_view(self):
+        
+        # I create a request to invoke the website and check the status - code 200 - OK
+        team_products_url = reverse('shop:team_products', kwargs={'pk': self.team.id})
         request = self.factory.get(team_products_url)
-        response = TeamProductsListViews.as_view()(request, pk=team.id)
+        response = TeamProductsListViews.as_view()(request, pk=self.team.id)
 
         self.assertEqual(response.status_code, 200)
 
-        # Sprawdzam czy założone dane pojawiają się w kontekście
+        # I check whether the assumed data appears in the context
         team_in_context = response.context_data['team']
         products_in_context = response.context_data['products']
 
-        self.assertEqual(team_in_context, team)
-        self.assertIn(product, products_in_context)
-        self.assertEqual(len(products_in_context), 1)  # Sprawdzam czy tylko produkty z ilością magazynową większą od 0 się pojawiają
+        self.assertEqual(team_in_context, self.team)
+        self.assertIn(self.product, products_in_context)
+        # I check whether only products with stock quantity greater than 0 appear
+        self.assertEqual(len(products_in_context), 1) 
 
 
 class ProductDetailViewTest(TestCase):
-    '''Klasa do testowania widoków detali produktów'''
+    '''A class for testing product detail views'''
+
     def setUp(self):
         self.factory = RequestFactory()
-
-    def test_product_detail_view(self):
-        # Tworzę dane testowe
-        team = Team.objects.create(team='Test Team')
-        player = NbaPlayer.objects.create(nba_player='Test Player')
-        product = Product.objects.create(
+        self.team = Team.objects.create(team='Test Team')
+        self.player = NbaPlayer.objects.create(nba_player='Test Player')
+        self.product = Product.objects.create(
             product_name='Test Product',
             price=100,
-            team_id=team,
-            nba_player = player
+            team_id=self.team,
+            nba_player = self.player
         )
-        variant = ProductVariant.objects.create(
+        self.variant = ProductVariant.objects.create(
             size='M',
             stock_quantity=5,
-            product_id=product
+            product_id=self.product
         )
 
+    def test_product_detail_view(self):
+ 
         # Create a request and call the view
-        product_detail_url = reverse('shop:product_detail', kwargs={'pk': product.id})
+        product_detail_url = reverse('shop:product_detail', kwargs={'pk': self.product.id})
         request = self.factory.get(product_detail_url)
-        response = ProductDetailView.as_view()(request, pk=product.id)
+        response = ProductDetailView.as_view()(request, pk=self.product.id)
 
         # Check if the response status code is 200 (OK)
         self.assertEqual(response.status_code, 200)
-
 
         # Check if the expected data is present in the context
         product_in_context = response.context_data['product']
@@ -148,8 +152,8 @@ class ProductDetailViewTest(TestCase):
         team_in_context = response.context_data['team']
         cart_product_form_in_context = response.context_data['cart_product_form']
 
-        self.assertEqual(product_in_context, product)
-        self.assertEqual(player_in_context, product.nba_player)
-        self.assertEqual(team_in_context, product.team_id)
+        self.assertEqual(product_in_context, self.product)
+        self.assertEqual(player_in_context, self.product.nba_player)
+        self.assertEqual(team_in_context, self.product.team_id)
         self.assertIsNotNone(cart_product_form_in_context)
 

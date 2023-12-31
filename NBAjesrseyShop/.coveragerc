@@ -8,3 +8,4 @@ omit =
     /usr/*
     */migrations/*
     */settings.py
+    */tests.py

@@ -8,6 +8,7 @@ Welcome to the NBA Jersey Shop, online store selling NBA player jerseys.
 * [Installation process](#installation-process)
 * [Technologies](#technologies)
 * [Features](#features)
+* [Tests](#tests)
 * [About authors](#authors)
 
 ## Installation process:
@@ -135,6 +136,18 @@ Responsible for placing orders and saving them to the database. This application
 All order processing and adding products is possible thanks to the administration panel.
 
 ![Adminpanel](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/adminpanel.PNG?raw=true)
+
+
+
+## Tests:
+
+Using the built-in test module provided by Django, specifically using the `TestCase` class, we conducted comprehensive unit tests of the implemented components of our applications.
+
+The report on the level of code coverage with tests is presented below:
+
+![Coveragereport](https://github.com/FilFib/NBAjerseyShop/blob/develop/README_img/coveragereport.PNG?raw=true)
+
+
 
 ## Authors:
 

@@ -5,7 +5,7 @@ from shop.models import Product, ProductVariant, Team, NbaPlayer
 
 
 class CartViewTest(TestCase):
-    # Tworzymy dane testowe
+    # We create test data
     def setUp(self):
         self.client = Client()
         self.test_team = Team.objects.create(team='test_team')
@@ -19,22 +19,18 @@ class CartViewTest(TestCase):
         url = reverse('cart:cart_add', args=[self.test_product.id])
         response = self.client.post(url, {'size': self.test_product_variant, 'quantity': 2, 'override': False})
 
-        # Sprawdzenie czy strony są przekierowane
+        # Checking if the page is redirected
         self.assertEqual(response.status_code, 302)
 
     def test_cart_update_view(self):
         url = reverse('cart:cart_update', args=[self.test_product_variant.id])
-        response = self.client.post(url, {'quantity': 3, 'override': True})
-
-        # Sprawdzenie, czy strony są przekierowane
+        response = self.client.post(url, {'quantity': 3, 'override': True})       
         self.assertEqual(response.status_code, 302)
 
     def test_cart_remove_view(self):
         id = self.test_product_variant.pk
         url = reverse('cart:cart_remove_product', args=[id])
         response = self.client.post(url)
-
-        # Sprawdzenie, czy strony są przekierowane
         self.assertEqual(response.status_code, 302)
 
     def test_cart_detail_view(self):
@@ -44,7 +40,7 @@ class CartViewTest(TestCase):
 
 
 class CartFormsTest(TestCase):
-    # Tworzę dane testowe
+    # We create test data
     def setUp(self):
         self.client = Client()
         test_team = Team.objects.create(team='test_team')
@@ -54,7 +50,7 @@ class CartFormsTest(TestCase):
                                               team_id_id=test_team.id)
         self.test_product_variant = ProductVariant.objects.create(product_id=self.test_product, size='XL', stock_quantity=10)
 
-    # Sprawdzam ważność formularza dodawania produktu do koszyka
+    # I am checking the validity of the form for adding a product to the cart
     def test_cart_add_product_form_valid_data(self):
         form_data = {
             'quantity': 2,
@@ -64,7 +60,7 @@ class CartFormsTest(TestCase):
         form = CartAddProductForm(product_id=self.test_product.id, data=form_data)
         self.assertTrue(form.is_valid())
 
-    # Sprawdzam ważność formularza przy próbie dodania większej ilości produktów niż jest ich w bazie danych
+    # Check the validity of the form when trying to add more products than are in the database
     def test_cart_add_product_form_invalid_data(self):
         form_data = {
             'quantity': 12,
@@ -75,7 +71,7 @@ class CartFormsTest(TestCase):
         self.assertFalse(form.is_valid())
         self.assertIn('quantity', form.errors)
 
-    # Testy wżności formularza aktualizacji koszyka
+    # Validity tests of the product quantity update form in the cart
     def test_cart_update_product_form_valid_data(self):
         form_data = {
             'quantity': 3,
@@ -84,9 +80,10 @@ class CartFormsTest(TestCase):
         form = CartUpdateProductForm(product_variant_id=self.test_product_variant.id, data=form_data)
         self.assertTrue(form.is_valid())
 
+    # Attempt to update the cart with a value above the quantity available
     def test_cart_update_product_form_invalid_data(self):
         form_data = {
-            'quantity': 12,  # próba zaktualizowania koszyka o wartość powyżej ilości dostępnej
+            'quantity': 12,  
             'override': True
         }
         form = CartUpdateProductForm(product_variant_id=self.test_product_variant.id, data=form_data)
