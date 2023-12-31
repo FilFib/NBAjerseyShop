@@ -102,5 +102,5 @@ class RegistrationViewTest(TestCase):
 
         self.assertTrue(test_address.city, 'testcity')
         self.assertEqual(test_address.country, 'testcountry')
-        self.assertNotEquals(test_address.house_no, '')
+        self.assertNotEqual(test_address.house_no, '')
         self.assertFalse(test_address.default_shipping_address)

@@ -4,8 +4,10 @@ from django.contrib.auth.base_user import BaseUserManager
 
 
 class UserManager(BaseUserManager):
+    # A class attribute that specifies whether this manager will be used in migrations.
     use_in_migrations = True
   
+    # The protected _create_user method is used to create and save a user in the database.
     def _create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError('Users require an email field')
@@ -15,11 +17,13 @@ class UserManager(BaseUserManager):
         user.save(using=self.db)
         return user
 
+    # The create_user method is a public method for creating a user without administrator privileges.
     def create_user(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         return self._create_user(email, password, **extra_fields)
 
+    # The create_user method is a public method for creating a user without administrator privileges.
     def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)

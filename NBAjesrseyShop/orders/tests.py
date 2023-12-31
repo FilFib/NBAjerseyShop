@@ -1,4 +1,4 @@
-from django.test import TestCase, Client, RequestFactory
+from django.test import TestCase
 from .models import *
 from accounts.models import User, Address
 from shop.models import *
